@@ -20,5 +20,4 @@ export const userRepoImpl = () =>{
 
 }
 
-type UserRepoImpl = ReturnType<typeof userRepoImpl>
-export default UserRepoImpl
+export type UserRepoImpl = ReturnType<typeof userRepoImpl>
