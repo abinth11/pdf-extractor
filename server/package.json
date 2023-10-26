@@ -7,9 +7,9 @@
   "author": "Abin T H",
   "license": "MIT",
   "scripts": {
-    "start": "node ./build/app.js",
+    "start": "set NODE_ENV=production && node ./build/app.js",
     "build": "tsc",
-    "dev": "nodemon ./src/app.ts"
+    "dev": "set NODE_ENV=development && nodemon ./src/app.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -19,7 +19,8 @@
     "express-rate-limit": "^7.0.2",
     "helmet": "^7.0.0",
     "mongoose": "^7.6.3",
-    "redis": "^4.6.10"
+    "redis": "^4.6.10",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.14",

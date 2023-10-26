@@ -1,7 +1,6 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import configKeys from '../../config';
 import mongoSanitize from 'express-mongo-sanitize';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
@@ -17,11 +16,10 @@ const limiter = rateLimit({
 });
 
 const expressConfig = (app: Application) => {
-  // Development logging
-  if (configKeys.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
   }
-  app.set('trust proxy', true); // Enable trust for X-Forwarded-* headers
+  // app.set('trust proxy', true); // Enable trust for X-Forwarded-* headers
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));

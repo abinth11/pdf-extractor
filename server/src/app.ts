@@ -11,6 +11,7 @@ import errorHandlingMiddleware from './frameworks/webserver/middlewares/error-ha
 import AppError from './utils/app-error';
 
 colors?.enable();
+console.log(process.env.NODE_ENV)
 
 const app: Application = express();
 const server = http.createServer(app);
