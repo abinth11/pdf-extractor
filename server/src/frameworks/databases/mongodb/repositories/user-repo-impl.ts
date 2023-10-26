@@ -3,13 +3,13 @@ import UserModel from "../models/user";
 
 export const userRepoImpl = () =>{
 
-    const add = (user:User) => {
+    const add = async (user:User) => {
         const newUser = new UserModel(user)
-        return newUser.save()
+        return await newUser.save()
     }
 
-    const findByEmail = (email:string) => {
-        const user = UserModel.findOne({email})
+    const findByEmail = async (email:string) => {
+        const user = await UserModel.findOne({email})
         return user
     }
 
@@ -20,4 +20,5 @@ export const userRepoImpl = () =>{
 
 }
 
-export type UserRepoImpl = ReturnType<typeof userRepoImpl>
+type UserRepoImpl = typeof userRepoImpl
+export default UserRepoImpl

@@ -46,4 +46,5 @@ export const authService = () => {
   };
 };
 
-export type AuthService = ReturnType<typeof authService>;
+type AuthServiceImpl = typeof authService;
+export default AuthServiceImpl

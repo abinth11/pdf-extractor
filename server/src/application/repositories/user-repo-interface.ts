@@ -1,7 +1,7 @@
 import User from "@src/entities/user";
-import {UserRepoImpl} from "@src/frameworks/databases/mongodb/repositories/user-repo-impl";
+import UserRepoImpl from "@src/frameworks/databases/mongodb/repositories/user-repo-impl";
 
-export const userRepoInterface = (repository:UserRepoImpl) => {
+export const userRepoInterface = (repository:ReturnType<UserRepoImpl>) => {
 
     const add = async (user:User) => await repository.add(user)
 
@@ -13,5 +13,6 @@ export const userRepoInterface = (repository:UserRepoImpl) => {
     }
 }
 
-export type UserRepoInterface = ReturnType<typeof userRepoInterface>
+ type UserRepoInterface = typeof userRepoInterface
+ export default UserRepoInterface
 

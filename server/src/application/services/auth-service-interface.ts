@@ -1,7 +1,7 @@
 import { JwtPayload } from 'jsonwebtoken';
-import { AuthService } from '@src/frameworks/services/auth-service';
+import AuthServiceImpl from '@src/frameworks/services/auth-service';
 
-export const authServiceInterface = (service: AuthService) => {
+export const authServiceInterface = (service: ReturnType<AuthServiceImpl>) => {
 
   const hashPassword = async(password: string) => await service.hashPassword(password);
 
@@ -26,4 +26,6 @@ export const authServiceInterface = (service: AuthService) => {
   };
 };
 
-export type AuthServiceInterface = typeof authServiceInterface;
+type AuthServiceInterface = typeof authServiceInterface
+
+export default AuthServiceInterface
