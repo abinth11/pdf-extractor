@@ -6,6 +6,7 @@ import UserRepoInterface from "../application/repositories/user-repo-interface";
 import UserRepoImpl from "../frameworks/databases/mongodb/repositories/user-repo-impl";
 import expressAsyncHandler from "express-async-handler";
 import { Request, Response } from "express";
+import { uCSignIn } from "../application/use-cases/user-sign-in";
 
 const authController = (
     authServiceInterface: AuthServiceInterface,
@@ -26,8 +27,19 @@ const authController = (
         })
     })
 
+    const signIn = expressAsyncHandler(async (req: Request, res: Response) => {
+        const { email, password } = req.body
+        const response = await uCSignIn(email, password, dbRepositoryUser, authService)
+        res.status(HttpStatusCodes.CREATED).json({
+            status: "success",
+            message: "successfully logged in",
+            data: response
+        })
+    })
+
     return {
-        signUp
+        signUp,
+        signIn
     }
 
 

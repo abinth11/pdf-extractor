@@ -3,9 +3,12 @@ import path from 'path'
 
 const env = process.env.NODE_ENV;
 console.log( path.join(__dirname, `..`, `.env.${env}`))
-dotenv.config({ path: path.join(__dirname, `..`, `.env.${env}`) });
+if(process.env.NODE_ENV ==="development"){
+  dotenv.config({ path: path.join(__dirname, `..`, `.env.development`) });
+}else {
+  dotenv.config({ path: path.join(__dirname, `..`, `.env.production`) });
+}
 
- 
 const  ENVIRONMENT_VARIABLES = {
 
   DB_URL: process.env.DB_URL as string,

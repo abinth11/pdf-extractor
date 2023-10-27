@@ -10,7 +10,8 @@ const authRouter = () =>{
     const controller = authController(authServiceInterface,authService,userRepoInterface,userRepoImpl)
     const router = express.Router()
 
-    router.post('/sign-in',controller.signUp)
+    router.post('/sign-up',controller.signUp)
+    router.post('/sign-in',controller.signIn)
 
     return router
 }
