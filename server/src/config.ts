@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 import path from 'path'
 
-const env = process.env.NODE_ENV;
-console.log( path.join(__dirname, `..`, `.env.${env}`))
+// const env = process.env.NODE_ENV;
+// console.log( path.join(__dirname, `..`, `.env.${env}`))
 if(process.env.NODE_ENV ==="development"){
   dotenv.config({ path: path.join(__dirname, `..`, `.env.development`) });
 }else {

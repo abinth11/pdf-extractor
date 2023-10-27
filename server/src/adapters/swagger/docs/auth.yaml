@@ -1,0 +1,174 @@
+swagger: "3.0.0"
+basePath: /api/v1
+tags:
+  - name: Auth
+    description: The authentication API
+paths:
+  /api/v1/auth/sign-up:
+    post:
+      summary: Register a user
+      description: Register a new user.
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        201:
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: "User registered successfully"
+                  data:
+                    type: object
+                    properties:
+                      accessToken:
+                        type: string
+                        example: "your-access-token"
+                      refreshToken:
+                        type: string
+                        example: "your-refresh-token"
+        400:
+          description: Bad request, Invalid user input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        409:
+          description: Conflict, A user already exists with the given credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/v1/auth/sign-in:
+    post:
+      summary: Login a user
+      description: Login a new user.
+      tags:
+        - Auth
+      requestBody:
+        required: true 
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        200:
+          description: User logged in successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        400:
+          description: Bad request, Invalid user input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        401:
+          description: Unauthorized, Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        404:
+          description: Not found, User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        _id:
+          type: string
+          description: The auto-generated id of the user
+        name:
+          type: string
+          description: Name of the user
+          example: "John Doe"
+        email:
+          type: string
+          description: Email of the user
+          example: "johndoe@example.com"
+        password:
+          type: string
+          description: Password of the user
+          example: "John@1234"
+
+    ErrorResponse:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+          example: "error"
+        message:
+          type: string
+          example: "An error occurred"
+
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          description: Email address of the user
+          example: johndoe@example.com
+        password:
+          type: string 
+          description: Password of the user
+          example: "John@1234" 
+
+    LoginResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        message:
+          type: string
+          example: "User logged in successfully"
+        data:
+          type: object
+          properties:
+            accessToken:
+              type: string
+              example: "your-access-token"
+            refreshToken:
+              type: string
+              example: "your-refresh-token"

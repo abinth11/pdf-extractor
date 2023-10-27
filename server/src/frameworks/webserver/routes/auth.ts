@@ -1,4 +1,4 @@
-import authController from "../../../adapters/auth-controller";
+import authController from "../../../adapters/controllers/auth-controller";
 import express from 'express'
 import { authService } from "../../../frameworks/services/auth-service";
 import { authServiceInterface } from "../../../application/services/auth-service-interface";

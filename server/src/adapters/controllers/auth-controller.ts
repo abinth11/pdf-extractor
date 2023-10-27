@@ -1,12 +1,12 @@
-import HttpStatusCodes from "../constants/http-status-codes";
-import uCSignUp from "../application/use-cases/user-sign-up";
-import AuthServiceInterface from "../application/services/auth-service-interface";
-import AuthServiceImpl from "../frameworks/services/auth-service";
-import UserRepoInterface from "../application/repositories/user-repo-interface";
-import UserRepoImpl from "../frameworks/databases/mongodb/repositories/user-repo-impl";
+import HttpStatusCodes from "../../constants/http-status-codes";
+import uCSignUp from "../../application/use-cases/user-sign-up";
+import AuthServiceInterface from "../../application/services/auth-service-interface";
+import AuthServiceImpl from "../../frameworks/services/auth-service";
+import UserRepoInterface from "../../application/repositories/user-repo-interface";
+import UserRepoImpl from "../../frameworks/databases/mongodb/repositories/user-repo-impl";
 import expressAsyncHandler from "express-async-handler";
 import { Request, Response } from "express";
-import { uCSignIn } from "../application/use-cases/user-sign-in";
+import { uCSignIn } from "../../application/use-cases/user-sign-in";
 
 const authController = (
     authServiceInterface: AuthServiceInterface,
@@ -19,6 +19,7 @@ const authController = (
 
     const signUp = expressAsyncHandler(async (req: Request, res: Response) => {
         const userData = req.body
+        console.log(userData)
         const response = await uCSignUp(userData, dbRepositoryUser, authService)
         res.status(HttpStatusCodes.CREATED).json({
             status: "success",

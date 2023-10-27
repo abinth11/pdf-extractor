@@ -5,11 +5,11 @@ class User {
     email: string;
     password: string;
     createdAt: Date;
-    constructor({ name, email, password, createdAt }: IUser) {
+    constructor({ name, email, password }: IUser) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.createdAt = createdAt;
+        this.createdAt = new Date();
     }
 }
 

@@ -9,9 +9,10 @@ import colors from 'colors';
 import errorHandlingMiddleware from './frameworks/webserver/middlewares/error-handler';
 
 import AppError from './utils/app-error';
+import swaggerDocs from './adapters/swagger/swagger';
+import ENVIRONMENT_VARIABLES from './config';
 
 colors?.enable();
-console.log(process.env.NODE_ENV)
 
 const app: Application = express();
 const server = http.createServer(app);
@@ -29,6 +30,9 @@ expressConfig(app);
 
 //* routes for each endpoint
 routes(app, redisClient);
+
+//* swagger docs
+swaggerDocs(app,ENVIRONMENT_VARIABLES.PORT);
 
 //* handles server side errors
 app.use(errorHandlingMiddleware);

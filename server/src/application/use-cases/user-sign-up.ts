@@ -21,11 +21,10 @@ const uCSignUp = async (user: User, dbRepository: ReturnType<UserRepoInterface>,
         throw new AppError("User with the same email already exists..,Please login", HttpStatusCodes.CONFLICT);
     }
 
-    if (user.password) {
-        user.password = await authService.hashPassword(user.password);
-    }
-
     const newUser = new User(validateUser(user));
+    if (newUser.password) {
+        newUser.password = await authService.hashPassword(newUser.password);
+    }
     const response = await dbRepository.add(newUser);
 
     const payload = {
