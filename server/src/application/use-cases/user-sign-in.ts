@@ -4,6 +4,15 @@ import AuthServiceInterface from "../services/auth-service-interface";
 import HttpStatusCodes from "../../constants/http-status-codes";
 import AppError from "../../utils/app-error";
 
+/**
+ * Login a user in the system.
+ * @param email - email of the user
+ * @param password - password of the user
+ * @param dbRepository - The database repository for data base functions.
+ * @param authService - The authentication service contains functions for authentication.
+ * @returns An object containing access tokens and user data.
+ * @throws {AppError} - Throws an error if email,password are wrong or user does not exists.
+ */
 export const uCSignIn = async (
     email: string,
     password: string,
