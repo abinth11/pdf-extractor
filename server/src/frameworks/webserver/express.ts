@@ -3,17 +3,8 @@ import morgan from 'morgan';
 import cors from 'cors';
 import mongoSanitize from 'express-mongo-sanitize';
 import helmet from 'helmet';
-import rateLimit from 'express-rate-limit';
+import { limiter } from './middlewares/rate-limiter';
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 200, // maximum requests per windowMs
-  message: 'Too many requests from this IP, please try again later.',
-  keyGenerator: (req) => {
-    const xRealIp = req.headers['x-real-ip'];
-    return xRealIp ? String(xRealIp) : req.ip;
-  }
-});
 
 const expressConfig = (app: Application) => {
   if (process.env.NODE_ENV === 'development') {
