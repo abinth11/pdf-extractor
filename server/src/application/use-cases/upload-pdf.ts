@@ -1,36 +1,30 @@
-import fs from 'fs/promises';
-import { exec } from 'child_process';
+import { createWriteStream } from 'fs';
+import { Readable } from 'stream';
+import { resolve } from 'path';
+import { createRandomFileName } from '../../utils/helper-functions';
+import AppError from '../../utils/app-error';
+import HttpStatusCodes from '../../constants/http-status-codes';
 
 export const uCUploadPdfFile = async (fileBuffer: Buffer) => {
+    const destFileName = createRandomFileName();
+    const destFilePath = resolve(__dirname, '../..', 'uploads', destFileName);
+    return new Promise((resolve, reject) => {
+        const readStream = new Readable();
+        readStream.push(fileBuffer);
+        readStream.push(null);
 
-    // Define the path for the compressed PDF (output file)
-    const compressedPdfPath = 'compressed.pdf';
+        const writeStream = createWriteStream(destFilePath);
 
-    // Run Ghostscript to compress the PDF
-    const gsCommand = `gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dBATCH -dQUIET -sOutputFile=${compressedPdfPath} -`;
-    const gsProcess = exec(gsCommand, (error, stdout, stderr) => {
-        if (error) {
-            console.error('Error during PDF compression:', error);
-        } else {
-            console.log('PDF compression successful.');
-        }
+        readStream.pipe(writeStream);
+
+        writeStream.on('error', (err) => {
+            console.error('Error writing destination file:', err);
+            reject(new AppError("Failed to upload the file", HttpStatusCodes.INTERNAL_SERVER_ERROR));
+        });
+
+        writeStream.on('finish', () => {
+            console.log('File has been saved to:', destFilePath);
+            resolve(destFileName);
+        });
     });
-
-    // Write the PDF content to the Ghostscript process
-    if (gsProcess.stdin) {
-        gsProcess.stdin.write(fileBuffer);
-        gsProcess.stdin.end();
-    }
-
-    // Wait for the process to complete (optional)
-    await new Promise((resolve) => gsProcess.on('close', resolve));
-
-    // Read the compressed PDF
-    const compressedPdfBuffer = await fs.readFile(compressedPdfPath);
-
-    // Save the compressed PDF
-    await fs.writeFile('compressed.pdf', compressedPdfBuffer);
-
-    // Cleanup temporary files if needed
-    await fs.unlink(compressedPdfPath);
 };
