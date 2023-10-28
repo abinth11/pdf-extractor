@@ -1,9 +1,9 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "server side for netyam elearning",
+  "description": "server side for pdf extractor",
   "main": "app.js",
-  "repository": "https://github.com/abinth11/Netyam-Elearning.git",
+  "repository": "https://github.com/abinth11/pdf-extractor.git",
   "author": "Abin T H",
   "license": "MIT",
   "scripts": {

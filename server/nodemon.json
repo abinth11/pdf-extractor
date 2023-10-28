@@ -1,12 +1,11 @@
 {
-    "watch": ["src"],
-    "ext": "js, json, yaml, yml,ts",
-    "execMap": {
-      "js": "node",
-      "json": "node",
-      "yaml": "node",
-      "yml": "node",
-      "ts":"node"
-    }
+  "watch": ["src"],
+  "ext": "js, json, yaml, yml, ts",
+  "execMap": {
+    "js": "node",
+    "json": "node",
+    "yaml": "node",
+    "yml": "node",
+    "ts": "ts-node"
   }
-  
+}

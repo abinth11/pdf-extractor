@@ -31,12 +31,12 @@ const NavBar: React.FC = () => {
               <NavBarDropDown />
           ) : (
             <div className='flex items-center gap-4'>
-              <NavLink to={"/login"} onClick={handleNavClick}>
+              <NavLink to={"/sign-in"} onClick={handleNavClick}>
                 <button className='bg-white rounded-md px-3 py-2 border border-slate-100 shadow-md  cursor-pointer text-black font-semibold transition duration-300 ease-in-out'>
                   Sign In
-                </button>
+                </button> 
               </NavLink>
-              <NavLink to={"/register"} onClick={handleNavClick}>
+              <NavLink to={"/sign-up"} onClick={handleNavClick}>
                 <button className='bg-primary rounded-md px-3 py-2 border border-slate-100 shadow-md hover:bg-hover cursor-pointer text-white font-semibold transition duration-300 ease-in-out'>
                   Sign Up
                 </button>

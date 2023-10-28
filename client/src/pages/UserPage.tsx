@@ -4,7 +4,7 @@ type Props = {};
 
 function UserPage({}: Props) {
   return (
-    <div className="">
+    <div className="h-screen w-full">
       <NavBar/>
       <Outlet />
     </div>
