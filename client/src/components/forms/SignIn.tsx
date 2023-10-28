@@ -53,7 +53,7 @@ const SignInForm: React.FC<LoginProps> = ({ loginError,setResError }) => {
             {loading && (<div className="loaderBar"></div>)}
             {
               
-              <button type="submit" className='bg-primary rounded-md px-3.5 mt-2 py-2.5 hover:bg-secondary shadow-md cursor-pointer text-white font-semibold transition duration-300 ease-in-out'>
+              <button type="submit" className='bg-primary w-full rounded-md px-3 mt-2 py-2 hover:bg-secondary shadow-md cursor-pointer text-white font-semibold transition duration-300 ease-in-out'>
 
                 Sign In
               </button>

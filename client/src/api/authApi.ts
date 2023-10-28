@@ -9,7 +9,7 @@ class AuthApi extends Auth {
     async signUp(userInfo: FormValues) {
         try {
             const response = await axiosInstance.post(this.EndPoints.SIGN_UP, userInfo)
-            console.log(response)
+            return response.data
         } catch (err) {
             throw err
         }

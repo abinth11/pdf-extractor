@@ -2,10 +2,11 @@ import React, { useRef } from "react";
 import { NavBarDropDown } from "../nav/NavbarDropDown";
 import { NavLink } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
- 
+import { selectIsLoggedIn} from "../../featrues/slices/userSlice";
+
 const NavBar: React.FC = () => {
-  const user = null
-  const ref = useRef<null | any>(null);
+  const user = selectIsLoggedIn()
+  const ref = useRef<null | any>(null); 
   const handleNavClick = () => {
     ref.current.complete();
   };
