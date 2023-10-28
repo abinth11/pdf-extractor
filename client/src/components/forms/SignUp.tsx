@@ -55,7 +55,6 @@ const SignUpForm: React.FC<Props> = ({ setResError, signUpError }) => {
       navigate('/')
     } catch (err:any) {
       setLoading(false)
-      console.log(err)
       setResError(err?.response?.data?.message) 
     }
   };

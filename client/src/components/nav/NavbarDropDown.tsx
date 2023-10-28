@@ -1,8 +1,11 @@
 import { FiLogOut } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearToken,clearUser } from "../../featrues/slices/userSlice";
 
 export const NavBarDropDown = () => {
+  const dispatch = useDispatch()
   const dropDownItemsClasses =
     "text-[13px] font-normal p-2.5 hover:bg-gray-100 flex flex-row gap-1.5 items-center";
 
@@ -10,7 +13,9 @@ export const NavBarDropDown = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate("/login");
+    dispatch(clearToken())
+    dispatch(clearUser())
+    navigate("/sign-in");
   };
 
   useEffect(() => {

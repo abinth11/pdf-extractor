@@ -56,7 +56,6 @@ export const { setToken, clearToken, setUser, clearUser } = userSlice.actions;
 
 export const selectIsLoggedIn = () => {
     const accessToken = localStorage.getItem("accessToken");
-    console.log(accessToken)
     return accessToken ? true : false;
 };
 
