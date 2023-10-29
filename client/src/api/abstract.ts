@@ -13,8 +13,10 @@ export abstract class Auth {
 
 export abstract class Pdf {
     protected EndPoints = {
-        UPLOAD:'/api/v1/pdf/upload'
+        UPLOAD:'/api/v1/pdf/upload',
+        FETCH_PDF:'/api/v1/pdf'
     }
     constructor(){}
     abstract uploadPdf(file:File):Promise<AxiosResponse>
+    abstract fetchPdfById(id:string):Promise<AxiosResponse>
 }

@@ -1,8 +1,10 @@
 import { useRef, ChangeEvent } from 'react';
 import PdfApi from '../api/pdfApi';
+import { useNavigate } from 'react-router-dom';
 
-function Homepage() {
+function UserHomePage() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const navigate = useNavigate()
   const pdfApi = new PdfApi()
 
   const handleFileSelect = () => {
@@ -18,6 +20,7 @@ function Homepage() {
       if (selectedFile.type === 'application/pdf') {
         console.log('Selected PDF file:', selectedFile);
         const response = await pdfApi.uploadPdf(selectedFile)
+        navigate('/extract-pages')
         console.log(response)
       } else {
         alert('Please select a PDF file.');
@@ -53,4 +56,4 @@ function Homepage() {
   );
 }
 
-export default Homepage;
+export default UserHomePage;

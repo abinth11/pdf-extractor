@@ -8,6 +8,7 @@ const pdfHandlerRoute = (redisClient:RedisClient)=>{
     const router = express.Router()
 
     router.post('/upload',upload.single('pdf'),controller.uploadPdfFile)
+    router.get('/:pdfId',controller.findPdfById)
 
     return router
 }
