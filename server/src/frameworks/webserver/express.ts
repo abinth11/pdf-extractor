@@ -13,7 +13,7 @@ const expressConfig = (app: Application) => {
   // app.set('trust proxy', true); // Enable trust for X-Forwarded-* headers
   app.use(cors());
   app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
+  app.use(express.urlencoded({ extended: false }));
   app.use(limiter);
   app.use(
     helmet.contentSecurityPolicy({

@@ -4,9 +4,11 @@ type Props = {};
 
 function UserPage({}: Props) {
   return (
-    <div className="h-screen w-full">
-      <NavBar/>
-      <Outlet />
+    <div className='h-screen w-full'>
+      <NavBar />
+      <div className="w-full mt-[75px]">
+        <Outlet />
+      </div>
     </div>
   );
 }
