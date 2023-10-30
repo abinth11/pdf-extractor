@@ -20,8 +20,10 @@ const pdfController = () => {
 
     const findPdfById = expressAsyncHandler(async (req: Request, res: Response) => {
         const pdfId = req.params.pdfId as string
-        const fileStream = uCFindPdfById(pdfId)
+        const {fileStream,pages} =  await uCFindPdfById(pdfId)
         res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('X-something','abskdfjsldfjsdkfjsdkf')
+        res.setHeader('X-Total-Pages', pages); 
         fileStream.pipe(res);
     })
 
