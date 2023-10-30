@@ -1,51 +1,45 @@
 import { useEffect, useState } from "react";
 import PdfApi from "../api/pdfApi";
+import { useParams } from "react-router-dom";
 import PdfViewer from "../components/pdv-viewer/PdfViewer";
 
 type Props = {};
 
 function ExtractPage({}: Props) {
-  const [pdfData, setPdfData] = useState<string | null>(null); // Use Uint8Array to store binary data
+  const [pdfData, setPdfData] = useState<string | null>(null);
   const [selectedMode, setSelectedMode] = useState<string>("range");
   const [from, setFrom] = useState<string>(""); // Initialize with "0" to ensure it's a positive number.
   const [to, setTo] = useState<string>(""); // Initialize with "0" to ensure it's a positive number.
   const [numberOfPages, setNumberOfPages] = useState<number>(10);
+  const {pdfId} = useParams()
   const pdfApi = new PdfApi();
-
   const fetchPdf = async () => {
     try {
-      const response = await pdfApi.fetchPdfById(
-        "76be22c5-c9f0-4d95-bf3c-fcbdc628bd95.pdf"
-      );
+      const response = await pdfApi.fetchPdfById(pdfId as string);
       if (response?.data) {
-        // Set the binary PDF data received from the server in the state
-        const url = URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
-        console.log(url)
-        setPdfData(url)
+        const file = new Blob([response.data], { type: "application/pdf" });
+        const fileURL = URL.createObjectURL(file);
+        console.log(fileURL)
+        // window.open(fileURL);
+        setPdfData(fileURL as string);
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
-
   useEffect(() => {
     fetchPdf();
   }, []);
-
-  useEffect(() => {}, []);
 
   const selectedClass =
     "border-primary border-2 focus:scale-105 focus:ring-2 ring-primary";
 
   return (
-    <div className='flex justify-between items-center w-full h-screen overflow-hidden overflow-y-hidden'>
-      <div className='w-9/12 h-full'>
-        ExtractPage
-        {pdfData && (
-        <PdfViewer pdfData={pdfData}/>
-      )}
+    <div className='flex flex-col md:flex-row justify-between items-start w-full h-screen overflow-hidden overflow-y-hidden'>
+      <div className='w-full md:w-9/12 h-[42rem] p-5'>
+        {pdfData && <PdfViewer pdfData={pdfData} />}
       </div>
-      <div className='w-3/12 h-full border-l border-slate-300'>
+      <div className='w-full md:w-3/12 h-full border-l border-slate-300'>
         <div className='w-full h-2/6'>
           <div className='flex p-5 justify-center items-center border-b border-slate-300'>
             <h1 className='text-2xl font-semibold'>Extract</h1>

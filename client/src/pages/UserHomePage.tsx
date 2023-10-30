@@ -20,8 +20,7 @@ function UserHomePage() {
       if (selectedFile.type === 'application/pdf') {
         console.log('Selected PDF file:', selectedFile);
         const response = await pdfApi.uploadPdf(selectedFile)
-        navigate('/extract-pages')
-        console.log(response)
+        navigate(`/extract-pages/${response.data}`)
       } else {
         alert('Please select a PDF file.');
       }

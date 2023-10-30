@@ -11,7 +11,7 @@ function App() {
     <Routes>
       <Route path='/' element={<UserPage />}>
         <Route index={true} element={<UserHomePage />} />
-        <Route path="/extract-pages" element={<ExtractPage/>}/>
+        <Route path="/extract-pages/:pdfId" element={<ExtractPage/>}/>
       </Route> 
       <Route path="/sign-up" element={<SignUpPage/>}/>
       <Route path="/sign-in" element={<SignInPage/>}/>

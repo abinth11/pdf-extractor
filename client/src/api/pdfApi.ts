@@ -11,15 +11,15 @@ class PdfApi extends Pdf {
             const formData = new FormData()
             formData.append('pdf', file)
             const response = await axiosInstance.post(this.EndPoints.UPLOAD, formData)
-            return response
+            return response.data
         } catch (err) {
             throw err
         }
     }
 
-    async fetchPdfById(id: string): Promise<AxiosResponse<any, any>> {
+    async fetchPdfById(id: string):Promise<AxiosResponse<ArrayBuffer>> {
         try {
-            const response = await axiosInstance.get(`${this.EndPoints.FETCH_PDF}/${id}`)
+            const response = await axiosInstance.get(`${this.EndPoints.FETCH_PDF}/${id}`,{ responseType: 'blob' })
             return response
         } catch (err) {
             throw err

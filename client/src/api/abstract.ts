@@ -18,5 +18,5 @@ export abstract class Pdf {
     }
     constructor(){}
     abstract uploadPdf(file:File):Promise<AxiosResponse>
-    abstract fetchPdfById(id:string):Promise<AxiosResponse>
+    abstract fetchPdfById(id:string):Promise<AxiosResponse<ArrayBuffer>>
 }

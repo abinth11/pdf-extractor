@@ -6,7 +6,7 @@ import AppError from '../../utils/app-error';
 import HttpStatusCodes from '../../constants/http-status-codes';
 
 export const uCUploadPdfFile = async (fileBuffer: Buffer) => {
-    const destFileName = createRandomFileName();
+    const destFileName = createRandomFileName()+".pdf"
     const destFilePath = resolve(__dirname, '../..', 'uploads', destFileName);
     return new Promise((resolve, reject) => {
         const readStream = new Readable();
