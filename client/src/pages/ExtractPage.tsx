@@ -7,7 +7,7 @@ type Props = {};
 
 function ExtractPage({}: Props) {
   const [pdfData, setPdfData] = useState<string | null>(null);
-  const [selectedMode, setSelectedMode] = useState<string>("range");
+  const [selectedMode, setSelectedMode] = useState<"range" | "random">("range");
   const [from, setFrom] = useState<string>("");
   const [to, setTo] = useState<string>("");
   const [random, setRandom] = useState<number[]>([]);
@@ -42,6 +42,13 @@ function ExtractPage({}: Props) {
 
   const handleExtract = async () => {
     try {
+      const response = await pdfApi.extractPages(
+        pdfId as string,
+        selectedMode === "random"
+          ? random
+          : { from: parseInt(from), to: parseInt(to) }
+      );
+      console.log(response);
       console.log(from, to);
       console.log(random);
     } catch (err) {

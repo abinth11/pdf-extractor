@@ -2,9 +2,9 @@ import HttpStatusCodes from "../../constants/http-status-codes";
 import AppError from "../../utils/app-error";
 import path from 'path';
 import fs from 'fs';
-import { countPagesInPDF } from "../../utils/helper-functions";
+import PdfServiceInterface from "../services/pdf-service-interface";
 
-export const uCFindPdfById = async (pdfId: string) => {
+export const uCFindPdfById = async (pdfId: string,pdfService:ReturnType<PdfServiceInterface>) => {
     if (!pdfId) {
         throw new AppError("Please provide a valid pdf id", HttpStatusCodes.BAD_REQUEST);
     }
@@ -14,7 +14,7 @@ export const uCFindPdfById = async (pdfId: string) => {
     if (fs.existsSync(filePath)) {
         try {
             const pdfBytes = fs.readFileSync(filePath); 
-            const pages = await countPagesInPDF(pdfBytes)
+            const pages = await pdfService.countPages(pdfBytes)
             console.log(pages)
             const fileStream = fs.createReadStream(filePath);
             return { fileStream, pages };
