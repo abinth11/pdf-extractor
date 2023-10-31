@@ -1,5 +1,5 @@
-import AuthBackGround from "../components/background/AuthBackGround";
-import SigUpFormParent from "../components/forms/SingUpFormParent";
+import AuthBackGround from "../../components/background/AuthBackGround";
+import SigUpFormParent from "../../components/forms/SingUpFormParent";
 type Props = {};
 
 function SignUpPage({}: Props) {

@@ -2,7 +2,7 @@ import { FiLogOut } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { clearToken,clearUser } from "../../featrues/slices/userSlice";
+import { clearToken,clearUser } from "../../features/slices/userSlice";
 
 export const NavBarDropDown = () => {
   const dispatch = useDispatch()

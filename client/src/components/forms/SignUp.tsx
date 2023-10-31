@@ -6,7 +6,7 @@ import { NameField, EmailField, PasswordField } from "../fields";
 import AuthApi from "../../api/authApi";
 import { notify } from "../notify/notify";
 import { useDispatch } from "react-redux";
-import { setToken, setUser } from "../../featrues/slices/userSlice";
+import { setToken, setUser } from "../../features/slices/userSlice";
 
 interface Props {
   signUpError: string;

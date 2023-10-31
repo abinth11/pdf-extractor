@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { NavBarDropDown } from "../nav/NavbarDropDown";
 import { NavLink } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
-import { selectIsLoggedIn} from "../../featrues/slices/userSlice";
+import { selectIsLoggedIn} from "../../features/slices/userSlice";
 
 const NavBar: React.FC = () => {
   const user = selectIsLoggedIn()
@@ -13,7 +13,7 @@ const NavBar: React.FC = () => {
 
   return (
     <div className=' px-5  h-[75px] z-50 w-full fixed top-0 flex  bg-transparent shadow-md items-center justify-center bg-white'>
-      <LoadingBar color='#2872fa' ref={ref} shadow={true} />
+      <LoadingBar color='#E5322D' ref={ref} shadow={true} />
       <div className='h-full flex w-full lg:w-10/12 justify-between items-center '>
         <div className='h-full w-6/12 lg:w-5/12 flex justify-between'>
           <div className='h-full flex items-center '>

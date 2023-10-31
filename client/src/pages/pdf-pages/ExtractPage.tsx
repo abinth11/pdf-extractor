@@ -1,35 +1,90 @@
 import { useEffect, useState } from "react";
-import PdfApi from "../api/pdfApi";
-import { useParams } from "react-router-dom";
-import PdfViewer from "../components/pdv-viewer/PdfViewer";
+import PdfApi from "../../api/pdfApi";
+import { useNavigate, useParams } from "react-router-dom";
+import PdfViewer from "../../components/pdf-viewer/PdfViewer";
+import PdfExtractLoader from "../../components/loader/PdfExtractLoader";
+import { setPdfData } from "../../features/slices/pdfSlice";
+import { useDispatch } from "react-redux";
+import { notify } from "../../components/notify/notify";
 
 type Props = {};
 
 function ExtractPage({}: Props) {
-  const [pdfData, setPdfData] = useState<string | null>(null);
-  const [selectedMode, setSelectedMode] = useState<string>("range");
-  const [from, setFrom] = useState<string>(""); // Initialize with "0" to ensure it's a positive number.
-  const [to, setTo] = useState<string>(""); // Initialize with "0" to ensure it's a positive number.
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+  const [selectedMode, setSelectedMode] = useState<"range" | "random">("range");
+  const [from, setFrom] = useState<string>("");
+  const [to, setTo] = useState<string>("");
+  const [random, setRandom] = useState<number[]>([]);
   const [numberOfPages, setNumberOfPages] = useState<number>(10);
-  const {pdfId} = useParams()
+  const [pdfExtracting, setPdfExtracting] = useState<boolean>(false);
+  const { pdfId } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const pdfApi = new PdfApi();
+
   const fetchPdf = async () => {
     try {
       const response = await pdfApi.fetchPdfById(pdfId as string);
+      const totalPages = response.headers["x-total-pages"];
+      setNumberOfPages(totalPages);
       if (response?.data) {
         const file = new Blob([response.data], { type: "application/pdf" });
         const fileURL = URL.createObjectURL(file);
-        console.log(fileURL)
-        // window.open(fileURL);
-        setPdfData(fileURL as string);
+        setPdfUrl(fileURL as string);
       }
     } catch (err) {
-      console.error(err);
+      notify("error", "Something went wrong please try again later");
     }
   };
   useEffect(() => {
     fetchPdf();
   }, []);
+
+  const handleCheckBoxChange = (value: number) => {
+    if (random?.includes(value)) {
+      setRandom(random.filter((item) => item !== value));
+    } else {
+      setRandom([...random, value]);
+    }
+  };
+
+  const handleExtract = async () => {
+    try {
+      if (selectedMode === "random" && random.length === 0) {
+        notify("error", "Please select at least one page to create new pdf");
+        return;
+      } else if (selectedMode === "range") {
+        if (from === "") {
+          notify("error", "from value cannot be empty");
+          return;
+        }
+        if (to === "") {
+          notify("error", "to value cannot be empty");
+        }
+      }
+      setPdfExtracting(true);
+      const response = await pdfApi.extractPages(
+        pdfId as string,
+        selectedMode === "random"
+          ? random
+          : { from: parseInt(from), to: parseInt(to) }
+      );
+      const file = new Blob([response.data], { type: "application/pdf" });
+      const fileURL = URL.createObjectURL(file);
+      dispatch(setPdfData({ pdfUrl: fileURL }));
+      setTimeout(() => {
+        setPdfExtracting(false);
+        navigate(`/download-pdf/${pdfId}`);
+      }, 1000);
+    } catch (err: any) {
+      notify("error", "Something went wrong please try again later");
+      setPdfExtracting(false);
+    }
+  };
+
+  if (pdfExtracting) {
+    return <PdfExtractLoader />;
+  }
 
   const selectedClass =
     "border-primary border-2 focus:scale-105 focus:ring-2 ring-primary";
@@ -37,12 +92,12 @@ function ExtractPage({}: Props) {
   return (
     <div className='flex flex-col md:flex-row justify-between items-start w-full h-screen overflow-hidden overflow-y-hidden'>
       <div className='w-full md:w-9/12 h-[42rem] p-5'>
-        {pdfData && <PdfViewer pdfData={pdfData} />}
+        {pdfUrl && <PdfViewer pdfData={pdfUrl} />}
       </div>
       <div className='w-full md:w-3/12 h-full border-l border-slate-300'>
         <div className='w-full h-2/6'>
           <div className='flex p-5 justify-center items-center border-b border-slate-300'>
-            <h1 className='text-2xl font-semibold'>Extract</h1>
+            <h1 className='text-2xl font-semibold'>Extract{numberOfPages}</h1>
           </div>
           <div className='p-5 w-full'>
             <h3 className='font-semibold text-lg'>Mode</h3>
@@ -84,9 +139,12 @@ function ExtractPage({}: Props) {
                       <input
                         type='number'
                         name='from'
+                        max={numberOfPages - 1}
                         onChange={(e) => {
                           const value = parseInt(e.target.value);
-                          if (!isNaN(value) && value >= 0) {
+                          if (value > numberOfPages - 1) {
+                            setFrom((numberOfPages - 1).toString());
+                          } else if (!isNaN(value) && value >= 0) {
                             setFrom(value.toString());
                           }
                         }}
@@ -103,9 +161,14 @@ function ExtractPage({}: Props) {
                       <input
                         value={to}
                         name='to'
+                        max={numberOfPages}
                         onChange={(e) => {
                           const value = parseInt(e.target.value);
-                          if (!isNaN(value) && value >= 0) {
+                          if (value > numberOfPages) {
+                            setTo(numberOfPages.toString());
+                          } else if (value < parseInt(from)) {
+                            setTo((parseInt(from) + 1).toString());
+                          } else if (!isNaN(value) && value >= 0) {
                             setTo(value.toString());
                           }
                         }}
@@ -128,7 +191,10 @@ function ExtractPage({}: Props) {
                       className='flex items-center flex-col space-x-2 mr-2 mt-2'
                     >
                       <input
+                        checked={random?.includes(index + 1)}
+                        onChange={() => handleCheckBoxChange(index + 1)}
                         type='checkbox'
+                        value={index + 1}
                         className='form-checkbox text-primary h-5 w-5 border-primary'
                       />
                       <span className='text-md'>{index + 1}</span>
@@ -140,7 +206,10 @@ function ExtractPage({}: Props) {
           </div>
         </div>
         <div className='flex  h-4/6 justify-center items-center  mt-20 p-5'>
-          <button className='bg-primary hover:bg-secondary text-xl px-[3.5rem] py-[1rem] rounded-xl text-white font-semibold'>
+          <button
+            onClick={handleExtract}
+            className='bg-primary hover:bg-secondary text-xl px-[3.5rem] py-[1rem] rounded-xl text-white font-semibold'
+          >
             Extract PDF
           </button>
         </div>

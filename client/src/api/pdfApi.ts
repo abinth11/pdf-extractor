@@ -17,13 +17,23 @@ class PdfApi extends Pdf {
         }
     }
 
-    async fetchPdfById(id: string):Promise<AxiosResponse<ArrayBuffer>> {
+    async fetchPdfById(id: string): Promise<AxiosResponse<ArrayBuffer>> {
         try {
-            const response = await axiosInstance.get(`${this.EndPoints.FETCH_PDF}/${id}`,{ responseType: 'blob' })
+            const response = await axiosInstance.get(`${this.EndPoints.FETCH_PDF}/${id}`, { responseType: 'blob' })
             return response
         } catch (err) {
             throw err
         }
+    } 
+
+    async extractPages(pdfId: string, pages: number[] | { from: number; to: number; }): Promise<AxiosResponse<ArrayBuffer>> {
+        try {
+            const response = await axiosInstance.post(`${this.EndPoints.EXTRACT_PAGES}/${pdfId}`, { pages },{ responseType: 'blob' })
+            return response
+        } catch (err) {
+            throw err
+        }
+
     }
 
 }
