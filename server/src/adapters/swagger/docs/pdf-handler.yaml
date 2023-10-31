@@ -1,0 +1,175 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: PDF File Upload API
+basePath: /api/v1
+tags:
+  - name: Pdf-Handlers
+    description: API endpoints for PDF uploading, fetching, and extraction
+
+paths:
+  /api/v1/pdf/upload:
+    post:
+      summary: Upload a PDF file to the Server
+      description: Upload a PDF file to the server. Only PDF files are accepted, and they will be saved in the upload directory.
+      tags:
+        - Pdf-Handlers
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Upload"
+      responses:
+        '200':
+          description: Successfully uploaded the PDF file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: "Successfully uploaded the PDF"
+                  data:
+                    type: string
+                    example: "pdf_id"
+        '400':
+          description: Bad request, invalid user input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/v1/pdf/{pdfId}:
+    get:
+      summary: To fetch an uploaded PDF
+      description: Fetches a PDF based on its ID
+      tags:
+        - Pdf-Handlers
+      parameters:
+        - name: pdfId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the PDF file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Bad request, invalid user input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '404':
+          description: A file with the given ID is not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/v1/pdf/extract-pages/{pdfId}:
+    post:
+      summary: To extract a new PDF from the uploaded PDF
+      description: This endpoint is responsible for extracting a new PDF from the uploaded PDF by specifying the page numbers by range or randomly
+      tags:
+        - Pdf-Handlers
+      parameters:
+        - name: pdfId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: object
+                  properties:
+                    from:
+                      type: number
+                    to:
+                      type: number
+                  required:
+                    - from
+                    - to
+                - type: array
+                  items:
+                    type: number
+                  required: true
+
+      responses:
+        '200':
+          description: Successfully extracted pages and created a new PDF file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Bad request, invalid user input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '404':
+          description: A file with the given ID is not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    Upload:
+      type: object
+      properties:
+        pdf:
+          type: string
+          format: binary
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "error"
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string

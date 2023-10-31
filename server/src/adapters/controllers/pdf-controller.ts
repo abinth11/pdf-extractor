@@ -8,6 +8,14 @@ import PdfService from "../../frameworks/services/pdf-service";
 import { ucExtractPages } from "../../application/use-cases/extract-pages";
 import { IPages } from "../../types/pdf";
 
+/**
+ * Creates an instance of a PDF controller with provided interfaces and implementations.
+ * This controller handles operations related to PDF files, including uploading, retrieval, and page extraction.
+ *
+ * @param pdfServiceInterface - Interface for the PDF service.
+ * @param pdfServiceImpl - Implementation of the PDF service.
+ * @returns A PDF controller instance with methods for uploading, finding by ID, and extracting pages from PDF files.
+ */
 const pdfController = (pdfServiceInterface: PdfServiceInterface, pdfServiceImpl: PdfService) => {
 
     const pdfService = pdfServiceInterface(pdfServiceImpl())

@@ -8,6 +8,16 @@ import expressAsyncHandler from "express-async-handler";
 import { Request, Response } from "express";
 import { uCSignIn } from "../../application/use-cases/user-sign-in";
 
+/**
+ * Creates an instance of an authentication controller with provided interfaces and implementations.
+ * This controller handles user authentication operations such as user registration and sign-in.
+ *
+ * @param authServiceInterface - Interface for the authentication service.
+ * @param authServiceImpl - Implementation of the authentication service.
+ * @param userRepoInterface - Interface for the user repository.
+ * @param userRepoImpl - Implementation of the user repository.
+ * @returns An authentication controller instance with sign-up and sign-in methods.
+ */
 const authController = (
     authServiceInterface: AuthServiceInterface,
     authServiceImpl: AuthServiceImpl,
@@ -30,7 +40,7 @@ const authController = (
     const signIn = expressAsyncHandler(async (req: Request, res: Response) => {
         const { email, password } = req.body
         const response = await uCSignIn(email, password, dbRepositoryUser, authService)
-        res.status(HttpStatusCodes.CREATED).json({
+        res.status(HttpStatusCodes.OK).json({
             status: "success",
             message: "successfully logged in",
             data: response
@@ -41,8 +51,6 @@ const authController = (
         signUp,
         signIn
     }
-
-
 }
 
 export default authController
