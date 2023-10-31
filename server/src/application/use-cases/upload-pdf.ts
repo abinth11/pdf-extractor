@@ -5,6 +5,12 @@ import { createRandomFileName } from '../../utils/helper-functions';
 import AppError from '../../utils/app-error';
 import HttpStatusCodes from '../../constants/http-status-codes';
 
+/**
+ * Uploads a PDF file to the server.
+ * @param fileBuffer - A Buffer containing the PDF file to upload.
+ * @returns A Promise that resolves with the uploaded file name or rejects with an error.
+ * @throws {AppError} - Throws an error if the upload fails.
+ */
 export const uCUploadPdfFile = async (fileBuffer: Buffer) => {
     const destFileName = createRandomFileName()+".pdf"
     const destFilePath = resolve(__dirname, '../../../public', 'uploads', destFileName);

@@ -5,6 +5,16 @@ import fs from 'fs'
 import path from 'path'
 import PdfServiceInterface from "../services/pdf-service-interface";
 
+/**
+ * Extract specific pages from a PDF file and return a readable file stream of the extracted content.
+ * @param pdfId - The unique ID of the PDF file to extract pages from.
+ * @param pages - An object specifying the pages to extract (either an array of specific page numbers or a page range).
+ * @param pdfService - The PDF service for processing PDF data.
+ * @returns A readable file stream containing the extracted PDF pages.
+ * @throws {AppError} - Throws an error if the PDF with the provided ID is not found,
+ * if there's an error processing the PDF, if the provided page specification is invalid,
+ * or if no pages are selected for extraction.
+ */
 export const ucExtractPages = async (pdfId: string, { pages }: IPages, pdfService: ReturnType<PdfServiceInterface>) => {
 
     const filePath = path.join(__dirname, "../../../public/uploads", pdfId);

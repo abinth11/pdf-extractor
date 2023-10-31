@@ -4,6 +4,14 @@ import path from 'path';
 import fs from 'fs';
 import PdfServiceInterface from "../services/pdf-service-interface";
 
+/**
+ * Find and retrieve a PDF file by its ID.
+ * @param pdfId - The unique ID of the PDF file to be retrieved.
+ * @param pdfService - The PDF service for processing PDF data.
+ * @returns An object containing a readable file stream and the number of pages in the PDF.
+ * @throws {AppError} - Throws an error if the PDF with the provided ID is not found,
+ * if there's an error processing the PDF, or if the PDF ID is invalid.
+ */
 export const uCFindPdfById = async (pdfId: string,pdfService:ReturnType<PdfServiceInterface>) => {
     if (!pdfId) {
         throw new AppError("Please provide a valid pdf id", HttpStatusCodes.BAD_REQUEST);
