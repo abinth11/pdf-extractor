@@ -35,18 +35,10 @@ const pdfController = (pdfServiceInterface: PdfServiceInterface, pdfServiceImpl:
     const extractPages = expressAsyncHandler(async (req: Request, res: Response) => {
         const pdfId = req.params.pdfId as string
         const pages = req.body as IPages
-        const response = await ucExtractPages(pdfId, pages, pdfService)
-        if (response.smallFile) {
-            res.setHeader('Content-Disposition', 'attachment; filename="extracted.pdf"');
-            res.setHeader('Content-Type', 'application/pdf');
-            res.send(response.extractedPdf);
-        } else {
-            res.download(response.tempFilePath, 'extracted.pdf', (err) => {
-                if (err) {
-                    console.log(err)
-                }
-            });
-        }
+        const fileStream = await ucExtractPages(pdfId, pages, pdfService)
+        res.setHeader('Content-Type', 'application/pdf');
+        res.status(HttpStatusCodes.OK)
+        fileStream.pipe(res);
     })
 
     return {

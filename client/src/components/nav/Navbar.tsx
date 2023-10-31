@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { NavBarDropDown } from "../nav/NavbarDropDown";
 import { NavLink } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
-import { selectIsLoggedIn} from "../../featrues/slices/userSlice";
+import { selectIsLoggedIn} from "../../features/slices/userSlice";
 
 const NavBar: React.FC = () => {
   const user = selectIsLoggedIn()

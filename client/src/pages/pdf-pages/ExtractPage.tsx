@@ -1,19 +1,26 @@
 import { useEffect, useState } from "react";
 import PdfApi from "../../api/pdfApi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PdfViewer from "../../components/pdf-viewer/PdfViewer";
+import PdfExtractLoader from "../../components/loader/PdfExtractLoader";
+import { setPdfData } from "../../features/slices/pdfSlice";
+import { useDispatch } from "react-redux";
 
 type Props = {};
 
 function ExtractPage({}: Props) {
-  const [pdfData, setPdfData] = useState<string | null>(null);
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [selectedMode, setSelectedMode] = useState<"range" | "random">("range");
   const [from, setFrom] = useState<string>("");
   const [to, setTo] = useState<string>("");
   const [random, setRandom] = useState<number[]>([]);
   const [numberOfPages, setNumberOfPages] = useState<number>(10);
+  const [pdfExtracting, setPdfExtracting] = useState<boolean>(false);
   const { pdfId } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const pdfApi = new PdfApi();
+
   const fetchPdf = async () => {
     try {
       const response = await pdfApi.fetchPdfById(pdfId as string);
@@ -22,7 +29,7 @@ function ExtractPage({}: Props) {
       if (response?.data) {
         const file = new Blob([response.data], { type: "application/pdf" });
         const fileURL = URL.createObjectURL(file);
-        setPdfData(fileURL as string);
+        setPdfUrl(fileURL as string);
       }
     } catch (err) {
       console.error(err);
@@ -42,17 +49,32 @@ function ExtractPage({}: Props) {
 
   const handleExtract = async () => {
     try {
+      setPdfExtracting(true);
       const response = await pdfApi.extractPages(
         pdfId as string,
         selectedMode === "random"
           ? random
           : { from: parseInt(from), to: parseInt(to) }
       );
-      console.log(response);
+      console.log(response)
+      const file = new Blob([response.data], { type: "application/pdf" });
+      const fileURL = URL.createObjectURL(file);
+      console.log(fileURL)
+      dispatch(setPdfData({ pdfUrl: fileURL }));
+      setTimeout(() => {
+        setPdfExtracting(false);
+        navigate(`/download-pdf/${pdfId}`); 
+      }, 1000);
     } catch (err) {
+      alert("error");
+      setPdfExtracting(false);
       console.log(err);
     }
   };
+
+  if (pdfExtracting) {
+    return <PdfExtractLoader />;
+  }
 
   const selectedClass =
     "border-primary border-2 focus:scale-105 focus:ring-2 ring-primary";
@@ -60,7 +82,7 @@ function ExtractPage({}: Props) {
   return (
     <div className='flex flex-col md:flex-row justify-between items-start w-full h-screen overflow-hidden overflow-y-hidden'>
       <div className='w-full md:w-9/12 h-[42rem] p-5'>
-        {pdfData && <PdfViewer pdfData={pdfData} />}
+        {pdfUrl && <PdfViewer pdfData={pdfUrl} />}
       </div>
       <div className='w-full md:w-3/12 h-full border-l border-slate-300'>
         <div className='w-full h-2/6'>

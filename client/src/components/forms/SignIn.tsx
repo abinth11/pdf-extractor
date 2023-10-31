@@ -5,7 +5,7 @@ import { EmailField,PasswordField } from "../fields";
 import AuthError from "../indicator/AuthError";
 import AuthApi from "../../api/authApi";
 import { useDispatch } from "react-redux";
-import { setUser,setToken } from "../../featrues/slices/userSlice";
+import { setUser,setToken } from "../../features/slices/userSlice";
 import { notify } from "../notify/notify";
 
 interface LoginProps {

@@ -8,8 +8,8 @@ import PdfServiceInterface from "../services/pdf-service-interface";
 export const ucExtractPages = async (pdfId: string, { pages }: IPages, pdfService: ReturnType<PdfServiceInterface>) => {
 
     const filePath = path.join(__dirname, "../../../public/uploads", pdfId);
-    const maxMemory = 100 * 1024 * 1024;
-    const threshold = maxMemory / 10000;
+    // const maxMemory = 100 * 1024 * 1024;
+    // const threshold = maxMemory / 1000000;
 
     if (fs.existsSync(filePath)) {
         try {
@@ -21,19 +21,12 @@ export const ucExtractPages = async (pdfId: string, { pages }: IPages, pdfServic
             } else {
                 extractedPdf = await pdfService.extractPagesByRange(pdfBytes, pages.from, pages.to)
             }
-            const fileSize = extractedPdf.length;
-            const smallFile = fileSize <= threshold
-            if (smallFile) {
-                console.log("less size")
-                return { extractedPdf, smallFile }
-            } else {
-                console.log("large file")
-                const tempFilePath = path.join(__dirname, '../../../public', 'temp', pdfId);
-                console.log(tempFilePath)
-                fs.writeFileSync(tempFilePath, extractedPdf);
-                //  const downloadLink = `/api/download-temp-pdf/${path.basename(tempFilePath)}`;
-                return { tempFilePath, smallFile }
-            }
+            const tempFilePath = path.join(__dirname, '../../../public', 'temp', pdfId);
+            fs.writeFileSync(tempFilePath, extractedPdf);
+
+            const fileStream = fs.createReadStream(tempFilePath);
+
+            return fileStream
 
         } catch (error) {
             throw new AppError("Error processing PDF", HttpStatusCodes.INTERNAL_SERVER_ERROR);
