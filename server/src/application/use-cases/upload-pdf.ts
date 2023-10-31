@@ -12,7 +12,11 @@ import HttpStatusCodes from '../../constants/http-status-codes';
  * @throws {AppError} - Throws an error if the upload fails.
  */
 export const uCUploadPdfFile = async (fileBuffer: Buffer) => {
-    const destFileName = createRandomFileName()+".pdf"
+    
+    if (!fileBuffer) {
+        throw new AppError("A pdf file is required", HttpStatusCodes.BAD_REQUEST)
+    }
+    const destFileName = createRandomFileName() + ".pdf"
     const destFilePath = resolve(__dirname, '../../../public', 'uploads', destFileName);
     return new Promise((resolve, reject) => {
         const readStream = new Readable();

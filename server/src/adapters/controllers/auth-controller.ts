@@ -40,7 +40,7 @@ const authController = (
     const signIn = expressAsyncHandler(async (req: Request, res: Response) => {
         const { email, password } = req.body
         const response = await uCSignIn(email, password, dbRepositoryUser, authService)
-        res.status(HttpStatusCodes.CREATED).json({
+        res.status(HttpStatusCodes.OK).json({
             status: "success",
             message: "successfully logged in",
             data: response

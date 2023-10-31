@@ -28,7 +28,7 @@ class PdfApi extends Pdf {
 
     async extractPages(pdfId: string, pages: number[] | { from: number; to: number; }): Promise<AxiosResponse<ArrayBuffer>> {
         try {
-            const response = await axiosInstance.post(`${this.EndPoints.EXTRACT_PAGES}/${pdfId}`, { pages },{ responseType: 'blob' })
+            const response = await axiosInstance.post(`${this.EndPoints.EXTRACT_PAGES}/${pdfId}`, pages ,{ responseType: 'blob' })
             return response
         } catch (err) {
             throw err
