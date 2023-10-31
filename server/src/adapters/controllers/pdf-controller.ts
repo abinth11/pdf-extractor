@@ -15,7 +15,6 @@ const pdfController = (pdfServiceInterface: PdfServiceInterface, pdfServiceImpl:
     const uploadPdfFile = expressAsyncHandler(async (req: Request, res: Response) => {
         const fileBuffer = req.file?.buffer as Buffer
         const response = await uCUploadPdfFile(fileBuffer)
-        console.log(response)
         res.status(HttpStatusCodes.OK).json({
             status: "success",
             message: "successfully uploaded your pdf file",

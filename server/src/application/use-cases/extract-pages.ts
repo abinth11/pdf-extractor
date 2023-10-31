@@ -8,17 +8,19 @@ import PdfServiceInterface from "../services/pdf-service-interface";
 export const ucExtractPages = async (pdfId: string, { pages }: IPages, pdfService: ReturnType<PdfServiceInterface>) => {
 
     const filePath = path.join(__dirname, "../../../public/uploads", pdfId);
-    // const maxMemory = 100 * 1024 * 1024;
-    // const threshold = maxMemory / 1000000;
-
     if (fs.existsSync(filePath)) {
         try {
             const pdfBytes = fs.readFileSync(filePath);
-            console.log(pages)
             let extractedPdf: Uint8Array;
             if (Array.isArray(pages)) {
+                if(pages.length===0){
+                    throw new AppError("At least select a page to extract new pdf", HttpStatusCodes.BAD_REQUEST);
+                }
                 extractedPdf = await pdfService.extractRandomPages(pdfBytes, pages)
             } else {
+                if (!pages.from || !pages.to) {
+                    throw new AppError("From or to value cannot be null", HttpStatusCodes.BAD_REQUEST);
+                }
                 extractedPdf = await pdfService.extractPagesByRange(pdfBytes, pages.from, pages.to)
             }
             const tempFilePath = path.join(__dirname, '../../../public', 'temp', pdfId);
@@ -29,7 +31,7 @@ export const ucExtractPages = async (pdfId: string, { pages }: IPages, pdfServic
             return fileStream
 
         } catch (error) {
-            throw new AppError("Error processing PDF", HttpStatusCodes.INTERNAL_SERVER_ERROR);
+            throw error
         }
     } else {
         throw new AppError("PDF not found with the requested id", HttpStatusCodes.NOT_FOUND);

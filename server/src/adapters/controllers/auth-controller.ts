@@ -19,7 +19,6 @@ const authController = (
 
     const signUp = expressAsyncHandler(async (req: Request, res: Response) => {
         const userData = req.body
-        console.log(userData)
         const response = await uCSignUp(userData, dbRepositoryUser, authService)
         res.status(HttpStatusCodes.CREATED).json({
             status: "success",

@@ -5,6 +5,7 @@ import PdfViewer from "../../components/pdf-viewer/PdfViewer";
 import PdfExtractLoader from "../../components/loader/PdfExtractLoader";
 import { setPdfData } from "../../features/slices/pdfSlice";
 import { useDispatch } from "react-redux";
+import { notify } from "../../components/notify/notify";
 
 type Props = {};
 
@@ -32,7 +33,7 @@ function ExtractPage({}: Props) {
         setPdfUrl(fileURL as string);
       }
     } catch (err) {
-      console.error(err);
+      notify("error", "Something went wrong please try again later");
     }
   };
   useEffect(() => {
@@ -49,6 +50,18 @@ function ExtractPage({}: Props) {
 
   const handleExtract = async () => {
     try {
+      if (selectedMode === "random" && random.length === 0) {
+        notify("error", "Please select at least one page to create new pdf");
+        return;
+      } else if (selectedMode === "range") {
+        if (from === "") {
+          notify("error", "from value cannot be empty");
+          return;
+        }
+        if (to === "") {
+          notify("error", "to value cannot be empty");
+        }
+      }
       setPdfExtracting(true);
       const response = await pdfApi.extractPages(
         pdfId as string,
@@ -56,19 +69,16 @@ function ExtractPage({}: Props) {
           ? random
           : { from: parseInt(from), to: parseInt(to) }
       );
-      console.log(response)
       const file = new Blob([response.data], { type: "application/pdf" });
       const fileURL = URL.createObjectURL(file);
-      console.log(fileURL)
       dispatch(setPdfData({ pdfUrl: fileURL }));
       setTimeout(() => {
         setPdfExtracting(false);
-        navigate(`/download-pdf/${pdfId}`); 
+        navigate(`/download-pdf/${pdfId}`);
       }, 1000);
-    } catch (err) {
-      alert("error");
+    } catch (err: any) {
+      notify("error", "Something went wrong please try again later");
       setPdfExtracting(false);
-      console.log(err);
     }
   };
 

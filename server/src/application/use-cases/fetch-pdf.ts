@@ -15,7 +15,6 @@ export const uCFindPdfById = async (pdfId: string,pdfService:ReturnType<PdfServi
         try {
             const pdfBytes = fs.readFileSync(filePath); 
             const pages = await pdfService.countPages(pdfBytes)
-            console.log(pages)
             const fileStream = fs.createReadStream(filePath);
             return { fileStream, pages };
         } catch (error) {

@@ -9,10 +9,7 @@ type Props = {};
 
 function PdfDownloadPage({}: Props) {
   const pdfUrl = useSelector(selectPdfUrl);
-  console.log(pdfUrl);
   const handleDownloadPdf = () => {
-    console.log("===========");
-    console.log(pdfUrl);
     if (pdfUrl) {
       const a = document.createElement("a");
       a.style.display = "none";
