@@ -1,5 +1,5 @@
-import AuthBackGround from '../components/background/AuthBackGround'
-import SignInFormParent from '../components/forms/SignInFormParent'
+import AuthBackGround from '../../components/background/AuthBackGround'
+import SignInFormParent from '../../components/forms/SignInFormParent'
 
 type Props = {}
 

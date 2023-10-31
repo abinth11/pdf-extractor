@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import NavBar from "../components/nav/Navbar";
+import NavBar from "../../components/nav/Navbar";
 type Props = {};
 
 function UserPage({}: Props) {

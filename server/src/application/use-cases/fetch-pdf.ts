@@ -9,7 +9,7 @@ export const uCFindPdfById = async (pdfId: string,pdfService:ReturnType<PdfServi
         throw new AppError("Please provide a valid pdf id", HttpStatusCodes.BAD_REQUEST);
     }
 
-    const filePath = path.join(__dirname, "../../uploads", pdfId);
+    const filePath = path.join(__dirname, "../../../public/uploads", pdfId);
 
     if (fs.existsSync(filePath)) {
         try {

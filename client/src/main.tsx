@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "./featrues/store.ts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ErrorBoundary from "./pages/ErrorBoundary.tsx";
+import ErrorBoundary from "./pages/error/ErrorBoundary.tsx";
 import FallbackUI from "./components/error/FallBackUi.tsx";
 import "./index.css";
 

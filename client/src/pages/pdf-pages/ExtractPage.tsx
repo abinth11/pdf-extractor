@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import PdfApi from "../api/pdfApi";
+import PdfApi from "../../api/pdfApi";
 import { useParams } from "react-router-dom";
-import PdfViewer from "../components/pdv-viewer/PdfViewer";
+import PdfViewer from "../../components/pdf-viewer/PdfViewer";
 
 type Props = {};
 
@@ -49,8 +49,6 @@ function ExtractPage({}: Props) {
           : { from: parseInt(from), to: parseInt(to) }
       );
       console.log(response);
-      console.log(from, to);
-      console.log(random);
     } catch (err) {
       console.log(err);
     }
