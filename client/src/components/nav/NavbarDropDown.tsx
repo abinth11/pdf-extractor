@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearToken,clearUser } from "../../features/slices/userSlice";
 
-export const NavBarDropDown = () => {
+export const NavBarDropDown:React.FC<{name:string}> = ({name}) => {
   const dispatch = useDispatch()
   const dropDownItemsClasses =
     "text-[13px] font-normal p-2.5 hover:bg-gray-100 flex flex-row gap-1.5 items-center";
@@ -15,7 +15,7 @@ export const NavBarDropDown = () => {
   const handleLogout = () => {
     dispatch(clearToken())
     dispatch(clearUser())
-    navigate("/sign-in");
+    navigate("/sign-in",{replace:true});
   };
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export const NavBarDropDown = () => {
               </div>
               <div className={"w-max"}>
                 <p className={"text-[11px]"}>Logged in as</p>
-                <p className={"text-[13px] "}>{"User"}</p>
+                <p className={"text-[13px] "}>{name}</p>
               </div>
             </div>
             <ul className={"w-full flex flex-col cursor-pointer"}>

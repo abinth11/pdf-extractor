@@ -2,6 +2,24 @@
 
 Welcome to PDF Slice Master, a powerful platform designed to extract specific pages from PDF files and create new PDFs with ease. With PDF Slice Master, you can effortlessly upload your PDF files and customize your new PDFs by specifying the pages you need. This project leverages a robust technology stack that includes Node.js, Express, MongoDB, Mongoose, and TypeScript, following clean architecture principles to ensure maintainability and scalability.
 
+## Table of Contents
+
+1. [Installation](#installation)
+2. [Documentation and Testing](#documentation-and-testing)
+3. [Usage](#usage)
+   - [Development](#usage-for-development)
+   - [Production](#usage-for-production)
+4. [How to Use PDF Slice Master](#how-to-use)
+4. [Key Features](#key-features)
+5. [Error Handling](#error-handling)
+6. [APIs](#apis)
+7. [Detailed API Documentation](#detailed-api-documentation)
+8. [Database Schema](#database-schema)
+9. [Architecture and Technologies](#architecture-and-technologies)
+10. [Tools and Stack](#tools-and-stack)
+11. [Contact](#contact)
+
+
 ## Installation
 
 1. Clone the repository:
@@ -66,6 +84,40 @@ Explore the Swagger documentation at [http://localhost:4000/docs](http://localho
 5. Register and log in as a user to extract PDFs. Authenticated users can manage their PDF files within their accounts.
 
 (Repeat the same process to set up and access the React application located in the client directory.)
+
+## How to Use PDF Slice Master
+
+Here's a step-by-step guide on how to use PDF Slice Master to extract specific pages from PDF files:
+
+1. Select a PDF File
+
+   - Click the "Select a File" button to choose the PDF file you want to extract pages from.
+
+   ![Select a File](https://drive.google.com/file/d/1gL33xbCk0DIZD2rYNIoh-IyR1GXB3MJl/view?usp=sharing)
+
+2. Choose Extraction Mode
+   ![Extraction Page](https://drive.google.com/file/d/1nxotBzVf14jL6l_mquEU-3U6aOlNly2f/view?usp=sharing)
+   - After selecting the PDF file, you can choose between two extraction modes: "Select by Page Range" or "Select by Random."
+
+   ![Select by range](https://drive.google.com/file/d/1PZcAvgcJnZmgPGFnnk1fPwNngWA9quF-/view?usp=sharing)
+   ![Select random](https://drive.google.com/file/d/1uAHyWxgYjB4yi3kVuOfuEf7VXrZ0Ah5C/view?usp=sharing)
+
+
+3. Select Pages to Extract
+
+   - If you choose "Select by Page Range," enter the page range you want to extract (e.g., 1-5).
+
+   - If you choose "Select by Random," specify the number of random pages to extract.
+
+   ![Select Pages](images/select_pages.png)
+
+4. Extract and Download
+
+   - Click the "Extract" button to process the extraction.
+
+   - Once the extraction is complete, you'll be able to download the newly created PDF with the selected pages.
+
+   ![Download PDF](https://drive.google.com/file/d/1TN8ZqBP23L4ThuMZphTAvi1oY2Osl6qG/view?usp=sharing)
 
 ## Key Features
 
@@ -229,3 +281,5 @@ For any questions, feedback, or inquiries, please reach out to:
 - Abin T H
   - Email: abinth250@example.com
   - LinkedIn: [LinkedIn Profile](https://www.linkedin.com/in/abin-th-170676245/)
+
+

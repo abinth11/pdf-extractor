@@ -15,14 +15,14 @@ export const authService = () => {
 
   const generateToken = (payload: JwtPayload) => {
     const token = jwt.sign({ payload }, ENVIRONMENT_VARIABLES.JWT_SECRET, {
-      expiresIn: '30m'
+      expiresIn: '7d'
     });
     return token; 
   };
 
   const generateRefreshToken = (payload: JwtPayload) => {
     const token = jwt.sign({ payload }, ENVIRONMENT_VARIABLES.JWT_REFRESH_SECRET, {
-      expiresIn: '1d'
+      expiresIn: '30d'
     });
     return token;
   };

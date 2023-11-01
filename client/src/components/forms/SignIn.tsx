@@ -45,11 +45,12 @@ const SignInForm: React.FC<LoginProps> = ({ loginError,setResError }) => {
     setLoading(true);
     const response = await authApi.signIn(loginState);
     setLoading(false)
+    console.log(response)
     dispatch(setUser(response?.data?.user)) 
-    dispatch(setToken(response?.data?.accessToken))
+    dispatch(setToken({accessToken:response?.data?.accessToken}))
     notify("success",response?.message as string)
     clearForm() 
-    navigate('/')
+    navigate('/',{replace:true})  
   } catch (err:any) {
     setLoading(false)
     setResError(err?.response?.data?.message) 

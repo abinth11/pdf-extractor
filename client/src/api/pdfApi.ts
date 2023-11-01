@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { Pdf } from "./abstract";
-import { axiosInstance } from "./config";
+import { axiosAuthorized, axiosInstance } from "./config";
 
 class PdfApi extends Pdf {
     constructor() {
@@ -24,16 +24,35 @@ class PdfApi extends Pdf {
         } catch (err) {
             throw err
         }
-    } 
+    }
 
     async extractPages(pdfId: string, pages: number[] | { from: number; to: number; }): Promise<AxiosResponse<ArrayBuffer>> {
         try {
-            const response = await axiosInstance.post(`${this.EndPoints.EXTRACT_PAGES}/${pdfId}`, pages ,{ responseType: 'blob' })
+            const response = await axiosInstance.post(`${this.EndPoints.EXTRACT_PAGES}/${pdfId}`, pages, { responseType: 'blob' })
             return response
         } catch (err) {
             throw err
         }
 
+    }
+
+    async fetchSaved(): Promise<AxiosResponse<any, any>> {
+        try {
+            const response = await axiosAuthorized.get(this.EndPoints.FETCH_ALL_SAVED)
+            return response
+        } catch (err) {
+            throw err
+        }
+
+    }
+
+    async savePdf(pdfId: string): Promise<AxiosResponse<any, any>> {
+        try {
+            const response = await axiosAuthorized.post(this.EndPoints.SAVE_PDF,{pdfId})
+            return response
+        } catch (err) {
+            throw err
+        }
     }
 
 }

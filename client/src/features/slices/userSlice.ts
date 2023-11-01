@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 const accessToken = localStorage.getItem("accessToken")
 interface User {
@@ -22,14 +23,10 @@ const userSlice = createSlice({
     reducers: {
         setToken(
             state,
-            action: PayloadAction<{ accessToken: string}>
+            action: PayloadAction<{ accessToken: string }>
         ) {
-            localStorage.setItem(
-                "accessToken",
-                JSON.stringify({
-                    accessToken: action.payload.accessToken,
-                })
-            );
+            console.log(accessToken)
+            localStorage.setItem("accessToken",action.payload.accessToken);
             state.accessToken = action.payload.accessToken
             state.isLoggedIn = true;
         },
@@ -46,6 +43,7 @@ const userSlice = createSlice({
             state.user = action.payload
         },
         clearUser(state) {
+            localStorage.removeItem("user")
             state.user = null
         }
     },
@@ -59,10 +57,7 @@ export const selectIsLoggedIn = () => {
     return accessToken ? true : false;
 };
 
-export const selectUser = async () => {
-    const userData = await JSON.parse(localStorage.getItem("user") as string)
-    return userData
-}
+export const selectUser =  (state:RootState) => state.user.user
 
 
 export const userReducer = userSlice.reducer;

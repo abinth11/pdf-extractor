@@ -5,3 +5,11 @@ export interface PagesObj {
 }
 
 export type IPages = number[] | PagesObj;
+
+export interface IPdf {
+    userId:string;
+    pdfId:string;
+    saved:string[];
+    createdAt?:Date;
+    updatedAt?:Date;
+}

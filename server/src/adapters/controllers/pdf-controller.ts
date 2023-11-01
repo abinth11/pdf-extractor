@@ -7,6 +7,11 @@ import PdfServiceInterface from "../../application/services/pdf-service-interfac
 import PdfService from "../../frameworks/services/pdf-service";
 import { ucExtractPages } from "../../application/use-cases/extract-pages";
 import { IPages } from "../../types/pdf";
+import { CustomRequest } from "../../types/user";
+import { uCSaveExtractedPdf } from "../../application/use-cases/save-extracted-pdf";
+import PdfRepoInterface from "../../application/repositories/pdf-repo-interface";
+import PdfRepoImpl from "../../frameworks/databases/mongodb/repositories/pdf-repo-impl";
+import { uCFindSavedPdf } from "../../application/use-cases/fetch-saved-pdf";
 
 /**
  * Creates an instance of a PDF controller with provided interfaces and implementations.
@@ -16,9 +21,10 @@ import { IPages } from "../../types/pdf";
  * @param pdfServiceImpl - Implementation of the PDF service.
  * @returns A PDF controller instance with methods for uploading, finding by ID, and extracting pages from PDF files.
  */
-const pdfController = (pdfServiceInterface: PdfServiceInterface, pdfServiceImpl: PdfService) => {
+const pdfController = (pdfServiceInterface: PdfServiceInterface, pdfServiceImpl: PdfService, pdfRepo: PdfRepoInterface, pdfRepoImpl: PdfRepoImpl) => {
 
     const pdfService = pdfServiceInterface(pdfServiceImpl())
+    const dbRepositoryPdf = pdfRepo(pdfRepoImpl())
 
     const uploadPdfFile = expressAsyncHandler(async (req: Request, res: Response) => {
         const fileBuffer = req.file?.buffer as Buffer
@@ -48,10 +54,35 @@ const pdfController = (pdfServiceInterface: PdfServiceInterface, pdfServiceImpl:
         fileStream.pipe(res);
     })
 
+    const saveExtractedPdf = expressAsyncHandler(async (req: CustomRequest, res: Response) => {
+        const userId = req.userId as string
+        const pdfId = req.body.pdfId as string;
+        console.log(pdfId)
+        console.log(req.body)
+        const response = await uCSaveExtractedPdf(pdfId,userId, dbRepositoryPdf)
+        res.status(HttpStatusCodes.CREATED).json({
+            status: "success",
+            message: "successfully saved the file",
+            data: response
+        })
+    })
+
+    const findSavedPdfByUserId = expressAsyncHandler(async (req: CustomRequest, res: Response) => {
+        const userId = req.userId as string
+        const savedPdf = await uCFindSavedPdf(userId, dbRepositoryPdf)
+        res.status(HttpStatusCodes.OK).json({
+            status: "success",
+            message: "successfully retrieved saved pdf files by user id",
+            data: savedPdf
+        })
+    })
+
     return {
         uploadPdfFile,
         findPdfById,
-        extractPages
+        extractPages,
+        saveExtractedPdf,
+        findSavedPdfByUserId
     }
 }
 
