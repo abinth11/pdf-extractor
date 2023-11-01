@@ -2,10 +2,13 @@ import React, { useRef } from "react";
 import { NavBarDropDown } from "../nav/NavbarDropDown";
 import { NavLink } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
-import { selectIsLoggedIn} from "../../features/slices/userSlice";
+import { selectUser} from "../../features/slices/userSlice";
+import { useSelector } from "react-redux";
 
 const NavBar: React.FC = () => {
-  const user = selectIsLoggedIn()
+  const user = useSelector(selectUser)
+  console.log(user)
+  
   const ref = useRef<null | any>(null); 
   const handleNavClick = () => {
     ref.current.complete();
@@ -29,7 +32,7 @@ const NavBar: React.FC = () => {
 
         <div className='flex items-center gap-7 '>
           {user ? (
-              <NavBarDropDown />
+              <NavBarDropDown name={user?.name} />
           ) : (
             <div className='flex items-center gap-4'>
               <NavLink to={"/sign-in"} onClick={handleNavClick}>

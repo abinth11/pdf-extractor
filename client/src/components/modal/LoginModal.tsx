@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { FaTimes } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginModal({
   open,
@@ -9,10 +10,13 @@ export default function LoginModal({
   setOpen: (val: boolean) => void;
 }) {
   const cancelButtonRef = useRef(null);
+  const navigate = useNavigate()
 
   const closeModal = () => {
     setOpen(false);
   };
+
+  const handleLogin = () =>navigate('/sign-in')
 
   return (
     <div>
@@ -49,7 +53,7 @@ export default function LoginModal({
 
               <button
                 type='button'
-                onClick={closeModal}
+                onClick={handleLogin}
                 className='px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-secondary'
               >
                 Login

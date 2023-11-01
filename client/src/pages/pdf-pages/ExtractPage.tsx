@@ -74,7 +74,7 @@ function ExtractPage({}: Props) {
       dispatch(setPdfData({ pdfUrl: fileURL }));
       setTimeout(() => {
         setPdfExtracting(false);
-        navigate(`/download-pdf/${pdfId}`);
+        navigate(`/download-pdf/${pdfId}`,{replace:true});
       }, 1000);
     } catch (err: any) {
       notify("error", "Something went wrong please try again later");

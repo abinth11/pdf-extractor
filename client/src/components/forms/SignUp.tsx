@@ -52,7 +52,7 @@ const SignUpForm: React.FC<Props> = ({ setResError, signUpError }) => {
       dispatch(setToken(response?.data?.accessToken))
       notify("success",response?.message as string)
       clearForm()
-      navigate('/')
+      navigate('/',{replace:true})
     } catch (err:any) {
       setLoading(false)
       setResError(err?.response?.data?.message) 

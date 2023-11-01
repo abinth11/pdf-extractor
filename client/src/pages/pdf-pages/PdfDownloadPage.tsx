@@ -5,7 +5,7 @@ import { LuView } from "react-icons/lu";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { FiSave } from "react-icons/fi";
 import { selectIsLoggedIn } from "../../features/slices/userSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import LoginModal from "../../components/modal/LoginModal";
 import { useState } from "react";
 import PdfApi from "../../api/pdfApi";
@@ -19,7 +19,6 @@ function PdfDownloadPage({}: Props) {
   const user = useSelector(selectIsLoggedIn);
   const { downloadId } = useParams();
   const pdfApi = new PdfApi();
-  const navigate = useNavigate();
   const pdfUrl = useSelector(selectPdfUrl);
   const handleDownloadPdf = () => {
     if (pdfUrl) {
@@ -51,7 +50,6 @@ function PdfDownloadPage({}: Props) {
         });
     } else {
       setOpen(true);
-      // navigate('/sign-in')
     }
   };
 

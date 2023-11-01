@@ -50,7 +50,7 @@ const SignInForm: React.FC<LoginProps> = ({ loginError,setResError }) => {
     dispatch(setToken({accessToken:response?.data?.accessToken}))
     notify("success",response?.message as string)
     clearForm() 
-    navigate('/')  
+    navigate('/',{replace:true})  
   } catch (err:any) {
     setLoading(false)
     setResError(err?.response?.data?.message) 
