@@ -185,9 +185,10 @@ function ExtractPage({}: Props) {
                   Mark the checkboxes to extract random pages:
                 </div>
                 <div className='mt-3 w-full flex flex-wrap h-[17.5rem] p-2 shadow-md border overflow-y-scroll bg-light_shade'>
-                  {Array.from({ length: numberOfPages }).map((val, index) => (
+                  {Array.from({ length: numberOfPages }).fill(0).map((_, index) => (
                     <label
                       key={index}
+                      
                       className='flex items-center flex-col space-x-2 mr-2 mt-2'
                     >
                       <input
