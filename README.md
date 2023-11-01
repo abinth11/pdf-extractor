@@ -194,7 +194,7 @@ APIs related to PDF operations:
 
 ## Detailed API Documentation 
 
-For detailed documentation on available API endpoints and their usage, please refer to the [API Documentation](https://documenter.getpostman.com/view/23308654/2s9YXbAmJe).
+For detailed documentation on available API endpoints and their usage, please refer to the [API Documentation](https://documenter.getpostman.com/view/23308654/2s9YXcd56u).
 
 ## Database Schema
 
@@ -220,13 +220,44 @@ const userSchema = new Schema({
     }
 })
 ```
-
 Explanation:
 
 - `name`: Represents the user's name.
 - `email`: Represents the user's email address.
 - `password`: Contains the user's password, with a minimum length requirement of 8 characters.
 - `createdAt`: Timestamp of the user's creation.
+
+
+### Saved Pdf schema 
+
+```javascript
+   const pdfSchema = new Schema({
+    userId:{
+        type:Types.ObjectId,
+        required:true,
+        ref:"user"
+    },
+    saved:{
+        type:Array<String>,
+        default:[],
+    },
+    createdAt:{
+        type:Date,
+        required:true
+    },
+    updatedAt:{
+        type:Date,
+        required:true
+    }
+})
+```
+
+Explanation:
+
+- `userId`: Unique identifier of the user
+- `createdAt`: Timestamp of the user's creation.
+- `saved`: An array containing id's of the newly extracted pdf's
+- `updatedAt`: Last updated time
 
 ## Architecture and Technologies
 
