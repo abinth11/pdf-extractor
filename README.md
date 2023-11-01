@@ -100,7 +100,7 @@ Here's a step-by-step guide on how to use PDF Slice Master to extract specific p
    - After selecting the PDF file, you can choose between two extraction modes: "Select by Page Range" or "Select by Random."
    - Select by Range
      
-   ![Select by range](https://github.com/abinth11/pdf-extractor/blob/main/assets/select-range.png
+   ![Select by range](https://github.com/abinth11/pdf-extractor/blob/main/assets/select-range.png)
    
    - Select by Random
      
