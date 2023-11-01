@@ -9,7 +9,7 @@ Welcome to PDF Slice Master, a powerful platform designed to extract specific pa
 3. [Usage](#usage)
    - [Development](#usage-for-development)
    - [Production](#usage-for-production)
-4. [How to Use PDF Slice Master](#how-to-use)
+4. [How to Use PDF Slice Master](#how-to-use-pdf-slice-master)
 4. [Key Features](#key-features)
 5. [Error Handling](#error-handling)
 6. [APIs](#apis)
