@@ -93,14 +93,14 @@ Here's a step-by-step guide on how to use PDF Slice Master to extract specific p
 
    - Click the "Select a File" button to choose the PDF file you want to extract pages from.
 
-   ![Select a File](https://github.com/abinth11/pdf-extractor/assets/home-page.png)
+   ![Select a File](https://github.com/abinth11/pdf-extractor/blob/main/assets/home-page.png)
 
 2. Choose Extraction Mode
-   ![Extraction Page](https://drive.google.com/file/d/1nxotBzVf14jL6l_mquEU-3U6aOlNly2f/view?usp=sharing)
+   ![Extraction Page](https://github.com/abinth11/pdf-extractor/blob/main/assets/pdf-view.png)
    - After selecting the PDF file, you can choose between two extraction modes: "Select by Page Range" or "Select by Random."
 
-   ![Select by range](https://drive.google.com/file/d/1PZcAvgcJnZmgPGFnnk1fPwNngWA9quF-/view?usp=sharing)
-   ![Select random](https://drive.google.com/file/d/1uAHyWxgYjB4yi3kVuOfuEf7VXrZ0Ah5C/view?usp=sharing)
+   ![Select by range](https://github.com/abinth11/pdf-extractor/blob/main/assets/select-range.png)
+   ![Select random](https://github.com/abinth11/pdf-extractor/blob/main/assets/select-random.png)
 
 
 3. Select Pages to Extract
@@ -117,7 +117,7 @@ Here's a step-by-step guide on how to use PDF Slice Master to extract specific p
 
    - Once the extraction is complete, you'll be able to download the newly created PDF with the selected pages.
 
-   ![Download PDF](https://drive.google.com/file/d/1TN8ZqBP23L4ThuMZphTAvi1oY2Osl6qG/view?usp=sharing)
+   ![Download PDF](https://github.com/abinth11/pdf-extractor/blob/main/assets/download.png)
 
 ## Key Features
 
