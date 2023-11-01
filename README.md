@@ -93,7 +93,7 @@ Here's a step-by-step guide on how to use PDF Slice Master to extract specific p
 
    - Click the "Select a File" button to choose the PDF file you want to extract pages from.
 
-   ![Select a File](https://drive.google.com/file/d/1gL33xbCk0DIZD2rYNIoh-IyR1GXB3MJl/view?usp=sharing)
+   ![Select a File](https://github.com/abinth11/pdf-extractor/assets/home-page.png)
 
 2. Choose Extraction Mode
    ![Extraction Page](https://drive.google.com/file/d/1nxotBzVf14jL6l_mquEU-3U6aOlNly2f/view?usp=sharing)
