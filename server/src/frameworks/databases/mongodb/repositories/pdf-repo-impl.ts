@@ -8,14 +8,19 @@ export const pdfRepoImpl = () => {
         return await newPdf.save()
     }
 
-    const findSavedPdfByUserId = async (userId:string) =>{
-        const savedPdf = await ExtractedPdf.findOne({_id:userId})
+    const updateSaved = async (userId: string, pdf: PDF) => {
+        await ExtractedPdf.updateOne({ userId }, { $set: { ...pdf } });
+    };
+
+    const findSavedPdfByUserId = async (userId: string) => {
+        const savedPdf: PDF | null = await ExtractedPdf.findOne({ userId }).lean()
         return savedPdf
     }
 
     return {
         saveExtractedPdf,
-        findSavedPdfByUserId
+        findSavedPdfByUserId,
+        updateSaved
     }
 }
 

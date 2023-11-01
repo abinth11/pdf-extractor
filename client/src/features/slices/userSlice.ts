@@ -22,14 +22,10 @@ const userSlice = createSlice({
     reducers: {
         setToken(
             state,
-            action: PayloadAction<{ accessToken: string}>
+            action: PayloadAction<{ accessToken: string }>
         ) {
-            localStorage.setItem(
-                "accessToken",
-                JSON.stringify({
-                    accessToken: action.payload.accessToken,
-                })
-            );
+            console.log(accessToken)
+            localStorage.setItem("accessToken",action.payload.accessToken);
             state.accessToken = action.payload.accessToken
             state.isLoggedIn = true;
         },

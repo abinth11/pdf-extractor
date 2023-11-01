@@ -15,10 +15,15 @@ export abstract class Pdf {
     protected EndPoints = {
         UPLOAD:'/api/v1/pdf/upload',
         FETCH_PDF:'/api/v1/pdf',
-        EXTRACT_PAGES:'/api/v1/pdf/extract-pages'
+        EXTRACT_PAGES:'/api/v1/pdf/extract-pages',
+        SAVE_PDF:'api/v1/pdf/save-extracted',
+        FETCH_ALL_SAVED:'api/v1/pdf/saved'
+
     }
     constructor(){}
     abstract uploadPdf(file:File):Promise<AxiosResponse>
     abstract fetchPdfById(id:string):Promise<AxiosResponse<ArrayBuffer>>
     abstract extractPages(pdfId:string,pages:number[]|{from:number,to:number}):Promise<AxiosResponse<ArrayBuffer>>
+    abstract savePdf(pdfId:string):Promise<AxiosResponse>
+    abstract fetchSaved():Promise<AxiosResponse>
 }

@@ -90,20 +90,20 @@ function ExtractPage({}: Props) {
     "border-primary border-2 focus:scale-105 focus:ring-2 ring-primary";
 
   return (
-    <div className='flex flex-col md:flex-row justify-between items-start w-full h-screen overflow-hidden overflow-y-hidden'>
-      <div className='w-full md:w-9/12 h-[42rem] p-5'>
+    <div className='flex flex-col md:flex-row justify-between items-start w-full h-screen overflow-y-scroll md:overflow-hidden '>
+      <div className='w-full md:w-8/12 lg:w-9/12 h-[42rem] p-5'>
         {pdfUrl && <PdfViewer pdfData={pdfUrl} />}
       </div>
-      <div className='w-full md:w-3/12 h-full border-l border-slate-300'>
+      <div className='w-full md:w-4/12 lg:w-3/12  h-full border-l border-slate-300'>
         <div className='w-full h-2/6'>
           <div className='flex p-5 justify-center items-center border-b border-slate-300'>
-            <h1 className='text-2xl font-semibold'>Extract{numberOfPages}</h1>
+            <h1 className='text-2xl font-semibold'>Extract</h1>
           </div>
           <div className='p-5 w-full'>
             <h3 className='font-semibold text-lg'>Mode</h3>
-            <div className='mt-2 flex justify-between gap-x-3 w-full'>
+            <div className='mt-2 flex justify-between gap-x-5 md:gap-x-2 lg:gap-x-3 w-full'>
               <div
-                className={`p-4 w-1/2 shadow-sm bg-light_shade transform transition-transform duration-300 rounded-lg border cursor-pointer ${
+                className={`p-3 lg:p-4 w-1/2 shadow-sm bg-light_shade transform transition-transform duration-300 rounded-lg border cursor-pointer ${
                   selectedMode === "range"
                     ? selectedClass
                     : "hover:border-light_black border-2"
@@ -115,7 +115,7 @@ function ExtractPage({}: Props) {
                 Extract by range
               </div>
               <div
-                className={`p-4 bg-light_shade shadow-sm w-1/2 transform transition-transform duration-300 rounded-lg border cursor-pointer ${
+                className={`p-3 lg:p-4 bg-light_shade shadow-sm w-1/2 transform transition-transform duration-300 rounded-lg border cursor-pointer ${
                   selectedMode === "random"
                     ? selectedClass
                     : "hover:border-light_black border-2"
@@ -130,12 +130,12 @@ function ExtractPage({}: Props) {
             {selectedMode === "range" ? (
               <div className='w-full mt-8'>
                 <div className='w-full'>Select a range to extract:</div>
-                <div className='flex mt-3 justify-between w-full gap-x-3'>
+                <div className='flex mt-3 flex-shrink justify-between w-full gap-x-5 lg:gap-x-3'>
                   <div className='flex border border-slate-300 w-1/2 rounded-lg'>
-                    <div className=' w-1/2 border-r border-slate-300 h-full flex items-center justify-center p-2'>
+                    <div className=' border-r border-slate-300 h-full flex items-center justify-center  p-1 lg:p-2'>
                       from:
                     </div>
-                    <div className='w-1/2'>
+                    <div className=''>
                       <input
                         type='number'
                         name='from'
@@ -149,15 +149,15 @@ function ExtractPage({}: Props) {
                           }
                         }}
                         value={from}
-                        className='w-[4.2rem] ml-2 h-full p-1  appearance-none outline-none focus:none'
+                        className='w-11/12 md:w-[6.1rem]  ml-2 h-full p-1  appearance-none outline-none focus:none'
                       />
                     </div>
                   </div>
                   <div className='flex border border-slate-300 w-1/2 rounded-lg'>
-                    <div className=' w-1/2 border-r border-slate-300 h-full flex items-center justify-center p-2'>
+                    <div className='  border-r border-slate-300 h-full flex items-center justify-center  p-1 lg:p-2'>
                       to:
                     </div>
-                    <div className='w-1/2'>
+                    <div className=''>
                       <input
                         value={to}
                         name='to'
@@ -173,7 +173,7 @@ function ExtractPage({}: Props) {
                           }
                         }}
                         type='number'
-                        className='w-[4.2rem] ml-2 h-full p-1  appearance-none outline-none focus:none'
+                        className='w-11/12 md:w-[7.2rem] ml-2 h-full p-1  appearance-none outline-none focus:none'
                       />
                     </div>
                   </div>
@@ -205,7 +205,7 @@ function ExtractPage({}: Props) {
             )}
           </div>
         </div>
-        <div className='flex  h-4/6 justify-center items-center  mt-20 p-5'>
+        <div className='flex  h-4/6 justify-center items-center mt-24 p-5'>
           <button
             onClick={handleExtract}
             className='bg-primary hover:bg-secondary text-xl px-[3.5rem] py-[1rem] rounded-xl text-white font-semibold'

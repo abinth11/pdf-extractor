@@ -5,9 +5,11 @@ class PDF {
     pdfId: string;
     createdAt: Date;
     updatedAt: Date;
-    constructor({ userId,pdfId }: IPdf) {
+    saved:string[];
+    constructor({ userId,pdfId,saved }: IPdf) {
         this.pdfId = pdfId;
         this.userId = userId;
+        this.saved = saved
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }

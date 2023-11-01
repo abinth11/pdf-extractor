@@ -7,9 +7,12 @@ export const pdfRepoInterface = (repository:ReturnType<PdfRepoImpl>)=>{
 
     const findSavedPdfByUserId = async (userId:string) => await repository.findSavedPdfByUserId(userId)
 
+    const updateSaved = async (userId:string,pdf:PDF) => await repository.updateSaved(userId,pdf)
+
     return {
         saveExtractedPdf,
-        findSavedPdfByUserId
+        findSavedPdfByUserId,
+        updateSaved
     }
 }
 

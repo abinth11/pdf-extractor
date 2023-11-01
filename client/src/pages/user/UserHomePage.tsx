@@ -31,7 +31,7 @@ function UserHomePage() {
     <div className='flex flex-col justify-center items-center w-full h-full'>
       <div className='p-10 flex items-center justify-center flex-col'>
         <h1 className="text-5xl font-semibold"> Split PDF file</h1>
-        <p className="text-lg text-txt_dim mt-5">
+        <p className=" text-[18px] text-center md:text-xl text-txt_dim mt-5">
           Separate one page or a whole set for easy conversion into independent
           PDF files
         </p>

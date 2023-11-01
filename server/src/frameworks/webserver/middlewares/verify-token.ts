@@ -26,7 +26,7 @@ const verifyToken = (
     const authInstance = authServiceInterface(authService())
     const { payload } = authInstance.verifyToken(token) as JwtPayload
 
-    req.userId = payload.userId;
+    req.userId = payload.id;
     next();
   } catch (err) {
     throw new AppError('Access forbidden, Access token has expired', HttpStatusCodes.FORBIDDEN);

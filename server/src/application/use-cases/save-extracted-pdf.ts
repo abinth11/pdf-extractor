@@ -10,7 +10,22 @@ export const uCSaveExtractedPdf = async (pdfId: string, userId: string, reposito
     if (!userId) {
         throw new AppError("Please provide valid user id to save the pdf details", HttpStatusCodes.BAD_REQUEST)
     }
-    const newExtractedFile = new PDF({ userId, pdfId })
-    const response = await repository.saveExtractedPdf(newExtractedFile)
-    return response
+    const alreadyHaveCollection = await repository.findSavedPdfByUserId(userId)
+    console.log(alreadyHaveCollection)
+    let newExtractedFile: PDF;
+    let saved: string[] = [pdfId]
+    if (alreadyHaveCollection) {
+        if (alreadyHaveCollection.saved.includes(pdfId)) {
+            throw new AppError("Already saved this pdf file", HttpStatusCodes.BAD_REQUEST)
+        } else {
+            saved = [...alreadyHaveCollection.saved, pdfId]
+            newExtractedFile = new PDF({ userId, pdfId, saved })
+            const response = await repository.updateSaved(userId, newExtractedFile)
+            return response
+        }
+    } else {
+        newExtractedFile = new PDF({ userId, pdfId, saved })
+        const response = await repository.saveExtractedPdf(newExtractedFile)
+        return response
+    }
 }
