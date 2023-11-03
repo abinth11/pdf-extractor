@@ -27,7 +27,6 @@ export const ucExtractPages = async (pdfId: string,  pages : IPages, pdfService:
                 }
                 extractedPdf = await pdfService.extractRandomPages(pdfBytes, pages)
             } else {
-                console.log(pages.from,pages.to)
                 if (!pages?.from || !pages.to) {
                     throw new AppError("From or to value cannot be null", HttpStatusCodes.BAD_REQUEST);
                 }else if(pages.from>pages.to){

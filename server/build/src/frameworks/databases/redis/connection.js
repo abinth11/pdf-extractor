@@ -15,7 +15,6 @@ const redisConnect = () => {
         client.connect().then(() => {
             console.log("Redis connected successfully".bgRed.bold);
         }).catch((err) => {
-            console.log(err);
         });
         return client;
     };

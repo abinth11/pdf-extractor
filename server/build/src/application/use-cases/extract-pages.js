@@ -40,7 +40,6 @@ const ucExtractPages = (pdfId, pages, pdfService) => __awaiter(void 0, void 0, v
                 extractedPdf = yield pdfService.extractRandomPages(pdfBytes, pages);
             }
             else {
-                console.log(pages.from, pages.to);
                 if (!(pages === null || pages === void 0 ? void 0 : pages.from) || !pages.to) {
                     throw new app_error_1.default("From or to value cannot be null", http_status_codes_1.default.BAD_REQUEST);
                 }

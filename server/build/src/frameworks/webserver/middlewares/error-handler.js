@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const errorHandlingMiddleware = (err, req, res, next) => {
-    console.log(err);
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
     if (err.name === 'MongoServerError') {

@@ -2,6 +2,10 @@
 
 Welcome to PDF Slice Master, a powerful platform designed to extract specific pages from PDF files and create new PDFs with ease. With PDF Slice Master, you can effortlessly upload your PDF files and customize your new PDFs by specifying the pages you need. This project leverages a robust technology stack that includes Node.js, Express, MongoDB, Mongoose, and TypeScript, following clean architecture principles to ensure maintainability and scalability.
 
+## Live Link of the application
+
+[ PDF Slice Master](https://pdf-extractor-ecru.vercel.app)
+
 ## Table of Contents
 
 1. [Installation](#installation)

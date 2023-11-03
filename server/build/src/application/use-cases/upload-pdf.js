@@ -42,7 +42,6 @@ const uCUploadPdfFile = (fileBuffer) => __awaiter(void 0, void 0, void 0, functi
             reject(new app_error_1.default("Failed to upload the file", http_status_codes_1.default.INTERNAL_SERVER_ERROR));
         });
         writeStream.on('finish', () => {
-            console.log('File has been saved to:', destFilePath);
             resolve(destFileName);
         });
     });
