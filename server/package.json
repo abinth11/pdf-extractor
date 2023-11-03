@@ -7,7 +7,7 @@
   "author": "Abin T H",
   "license": "MIT",
   "scripts": {
-    "start": "set NODE_ENV=production && node ./build/app.js",
+    "start": "set NODE_ENV=production && node ./build/src/app.js",
     "build": "tsc",
     "dev": "set NODE_ENV=development && nodemon ./src/app.ts"
   },
