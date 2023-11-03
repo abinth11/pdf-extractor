@@ -24,7 +24,6 @@ const uCSaveExtractedPdf = (pdfId, userId, repository) => __awaiter(void 0, void
         throw new app_error_1.default("Please provide valid user id to save the pdf details", http_status_codes_1.default.BAD_REQUEST);
     }
     const alreadyHaveCollection = yield repository.findSavedPdfByUserId(userId);
-    console.log(alreadyHaveCollection);
     let newExtractedFile;
     let saved = [pdfId];
     if (alreadyHaveCollection) {

@@ -59,8 +59,6 @@ const pdfController = (pdfServiceInterface, pdfServiceImpl, pdfRepo, pdfRepoImpl
     const saveExtractedPdf = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const userId = req.userId;
         const pdfId = req.body.pdfId;
-        console.log(pdfId);
-        console.log(req.body);
         const response = yield (0, save_extracted_pdf_1.uCSaveExtractedPdf)(pdfId, userId, dbRepositoryPdf);
         res.status(http_status_codes_1.default.CREATED).json({
             status: "success",

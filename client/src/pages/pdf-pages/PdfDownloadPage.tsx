@@ -10,12 +10,14 @@ import LoginModal from "../../components/modal/LoginModal";
 import { useState } from "react";
 import PdfApi from "../../api/pdfApi";
 import { notify } from "../../components/notify/notify";
+import ViewExtractedPdf from "../../components/pdf-viewer/ViewExtractedPdf";
 
 type Props = {};
 
 function PdfDownloadPage({}: Props) {
   const [open, setOpen] = useState<boolean>(false);
   const [saving, setSaving] = useState<boolean>(false);
+  const [viewExtractedPdf,setViewExtractedPdf] = useState<boolean>(false)
   const navigate = useNavigate();
   const user = useSelector(selectIsLoggedIn);
   const { downloadId } = useParams();
@@ -45,7 +47,6 @@ function PdfDownloadPage({}: Props) {
         .then((res: any) => {
           notify("success", res.data.message as string);
           setSaving(false);
-          console.log(res);
         })
         .catch((err) => {
           setSaving(false);
@@ -55,6 +56,10 @@ function PdfDownloadPage({}: Props) {
       setOpen(true);
     }
   };
+
+  if(viewExtractedPdf){
+    return <ViewExtractedPdf pdfUrl={pdfUrl as string} setViewExtractedPdf={setViewExtractedPdf}/>
+  }
 
   return (
     <div className='flex flex-col justify-center items-center w-full h-full'>
@@ -82,6 +87,7 @@ function PdfDownloadPage({}: Props) {
             <div
               title='View pdf'
               className='bg-primary rounded-full p-2 shadow-lg ml-2.5 hover:bg-secondary hover:cursor-pointer'
+              onClick={()=>{setViewExtractedPdf(true)}}
             >
               <LuView className='text-white w-5 h-5 ' />
             </div>

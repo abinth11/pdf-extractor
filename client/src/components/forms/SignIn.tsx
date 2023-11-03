@@ -45,7 +45,6 @@ const SignInForm: React.FC<LoginProps> = ({ loginError,setResError }) => {
     setLoading(true);
     const response = await authApi.signIn(loginState);
     setLoading(false)
-    console.log(response)
     dispatch(setUser(response?.data?.user)) 
     dispatch(setToken({accessToken:response?.data?.accessToken}))
     notify("success",response?.message as string)

@@ -57,8 +57,6 @@ const pdfController = (pdfServiceInterface: PdfServiceInterface, pdfServiceImpl:
     const saveExtractedPdf = expressAsyncHandler(async (req: CustomRequest, res: Response) => {
         const userId = req.userId as string
         const pdfId = req.body.pdfId as string;
-        console.log(pdfId)
-        console.log(req.body)
         const response = await uCSaveExtractedPdf(pdfId,userId, dbRepositoryPdf)
         res.status(HttpStatusCodes.CREATED).json({
             status: "success",

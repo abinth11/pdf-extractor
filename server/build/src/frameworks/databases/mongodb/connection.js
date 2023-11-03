@@ -23,7 +23,6 @@ const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
         console.log(`Database connected successfully`.bgGreen.bold);
     }
     catch (error) {
-        console.log(error);
         process.exit(1);
     }
 });

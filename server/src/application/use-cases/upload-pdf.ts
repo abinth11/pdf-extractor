@@ -33,7 +33,6 @@ export const uCUploadPdfFile = async (fileBuffer: Buffer) => {
         });
 
         writeStream.on('finish', () => {
-            console.log('File has been saved to:', destFilePath);
             resolve(destFileName);
         });
     });
