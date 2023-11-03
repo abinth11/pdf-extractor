@@ -184,7 +184,7 @@ function ExtractPage({}: Props) {
                 <div className='w-full'>
                   Mark the checkboxes to extract random pages:
                 </div>
-                <div className='mt-3 w-full flex flex-wrap h-[17.5rem] p-2 shadow-md border overflow-y-scroll bg-light_shade'>
+                <div className='mt-3 mb-5 w-full flex flex-wrap h-[17.5rem] p-2 shadow-md border overflow-y-scroll bg-light_shade'>
                   {Array.from({ length: numberOfPages }).fill(0).map((_, index) => (
                     <label
                       key={index}
