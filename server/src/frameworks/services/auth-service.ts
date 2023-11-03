@@ -14,21 +14,21 @@ export const authService = () => {
   };
 
   const generateToken = (payload: JwtPayload) => {
-    const token = jwt.sign({ payload }, ENVIRONMENT_VARIABLES.JWT_SECRET, {
+    const token = jwt.sign({ payload },process.env.JWT_SECRET || ENVIRONMENT_VARIABLES.JWT_SECRET, {
       expiresIn: '7d'
     });
     return token; 
   };
 
   const generateRefreshToken = (payload: JwtPayload) => {
-    const token = jwt.sign({ payload }, ENVIRONMENT_VARIABLES.JWT_REFRESH_SECRET, {
+    const token = jwt.sign({ payload },process.env.JWT_REFRESH_SECRET || ENVIRONMENT_VARIABLES.JWT_REFRESH_SECRET, {
       expiresIn: '30d'
     });
     return token;
   };
 
   const verifyToken = (token: string) => {
-    return jwt.verify(token, ENVIRONMENT_VARIABLES.JWT_SECRET);
+    return jwt.verify(token,process.env.JWT_SECRET || ENVIRONMENT_VARIABLES.JWT_SECRET);
   }; 
 
   const decodeToken = (token:string)=>{
