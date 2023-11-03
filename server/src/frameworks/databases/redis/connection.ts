@@ -4,7 +4,7 @@ import { createClient } from 'redis'
 const redisConnect = () => {
   const createRedisClient = () => {
     const client = createClient({
-      url:ENVIRONMENT_VARIABLES.REDIS_URL ,
+      url:process.env.REDIS_URL||ENVIRONMENT_VARIABLES.REDIS_URL ,
     })
     // const client = createClient();
     client.on('error', err => console.log('Redis Client Error', err));
