@@ -19,10 +19,10 @@ function ViewExtractedPdf({ pdfUrl, setViewExtractedPdf }: Props) {
     }
   };
   return (
-    <div className='p-10 lg:py-15 lg:px-20 h-[41rem] w-full'>
+    <div className='p-10 lg:py-15 lg:px-20 h-[41rem] md:overflow-y-hidden overflow-y-scroll w-full'>
       <div className='w-full flex justify-between items-center mb-2'>
         <button
-          onClick={() => {
+          onClick={() => {  
             setViewExtractedPdf(false);
           }}
           className='text-primary flex shadow-black hover:text-secondary  font-semibold'
