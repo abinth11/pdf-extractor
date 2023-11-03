@@ -10,7 +10,7 @@ const expressConfig = (app: Application) => {
   if (process.env.NODE_ENV?.trim()==='development') {
     app.use(morgan('dev'));
   }
-  app.set('trust proxy', true);
+  
   app.use((req, res, next) => {
     res.header('Access-Control-Expose-Headers', 'X-Total-Pages');
     next();
