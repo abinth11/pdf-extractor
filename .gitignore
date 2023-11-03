@@ -6,7 +6,7 @@ yarn-error.log
 
 # Backend
 /server/node_modules/
-/server/build/
+# /server/build/
 # /server/public
 
 # Frontend
