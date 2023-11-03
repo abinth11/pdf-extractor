@@ -5,7 +5,7 @@ import { LuView } from "react-icons/lu";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { FiSave } from "react-icons/fi";
 import { selectIsLoggedIn } from "../../features/slices/userSlice";
-import {  useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import LoginModal from "../../components/modal/LoginModal";
 import { useState } from "react";
 import PdfApi from "../../api/pdfApi";
@@ -15,7 +15,8 @@ type Props = {};
 
 function PdfDownloadPage({}: Props) {
   const [open, setOpen] = useState<boolean>(false);
-  const [saving,setSaving] = useState<boolean>(false)
+  const [saving,setSaving] = useState<boolean>(false);
+  const navigate = useNavigate()
   const user = useSelector(selectIsLoggedIn);
   const { downloadId } = useParams();
   const pdfApi = new PdfApi();
@@ -33,6 +34,8 @@ function PdfDownloadPage({}: Props) {
       URL.revokeObjectURL(pdfUrl);
     }
   };
+
+  const handleGoBack = ()=> navigate('/')
 
   const handleSaveFile = () => {
     if (user) {
@@ -63,12 +66,13 @@ function PdfDownloadPage({}: Props) {
         <div className='md:mt-10 mt-5 flex items-center '>
           <div
             title='Go back'
+            onClick={handleGoBack}
             className='bg-gray-500 rounded-full p-1 mr-2.5  hover:cursor-pointer hover:bg-primary'
           >
             <IoMdArrowRoundBack className='text-white w-7 h-7' />
           </div>
           <button
-            className='bg-primary flex items-center justify-center hover:bg-secondary text-xl md:text-2xl px-[4.5rem] py-[1.5rem] rounded-xl text-white font-semibold'
+            className='bg-primary flex items-center justify-center hover:bg-secondary text-xl md:text-2xl px-[4rem] md:px-[4.5rem] py-[1.2rem] md:py-[1.5rem] rounded-xl text-white font-semibold'
             onClick={handleDownloadPdf}
           >
             <FaDownload className='h-7 w-7 mr-1.5' />

@@ -25,7 +25,6 @@ const userSlice = createSlice({
             state,
             action: PayloadAction<{ accessToken: string }>
         ) {
-            console.log(accessToken)
             localStorage.setItem("accessToken",action.payload.accessToken);
             state.accessToken = action.payload.accessToken
             state.isLoggedIn = true;
@@ -42,6 +41,9 @@ const userSlice = createSlice({
             );
             state.user = action.payload
         },
+        setUserState(state,action:PayloadAction<User>){
+            state.user = action.payload
+        },
         clearUser(state) {
             localStorage.removeItem("user")
             state.user = null
@@ -49,7 +51,7 @@ const userSlice = createSlice({
     },
 });
 
-export const { setToken, clearToken, setUser, clearUser } = userSlice.actions;
+export const { setToken, clearToken, setUser, clearUser,setUserState } = userSlice.actions;
 
 
 export const selectIsLoggedIn = () => {
