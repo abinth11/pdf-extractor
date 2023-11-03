@@ -37,3 +37,6 @@ logs/
 # Windows
 Thumbs.db
 dump.rdb
+
+/client/.nvmrc
+/server/.nvmrc
