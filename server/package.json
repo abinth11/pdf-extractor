@@ -9,6 +9,7 @@
   "scripts": {
     "start": "set NODE_ENV=production && node ./build/src/app.js",
     "build": "tsc",
+    "deploy": "npm i && npm run build && mkdir -p public/uploads && mkdir -p public/temp",
     "dev": "set NODE_ENV=development && nodemon ./src/app.ts"
   },
   "dependencies": {

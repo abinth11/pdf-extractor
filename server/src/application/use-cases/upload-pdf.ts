@@ -1,6 +1,6 @@
 import { createWriteStream } from 'fs';
 import { Readable } from 'stream';
-import { resolve } from 'path';
+import path from 'path';
 import { createRandomFileName } from '../../utils/helper-functions';
 import AppError from '../../utils/app-error';
 import HttpStatusCodes from '../../constants/http-status-codes';
@@ -17,7 +17,7 @@ export const uCUploadPdfFile = async (fileBuffer: Buffer) => {
         throw new AppError("A pdf file is required", HttpStatusCodes.BAD_REQUEST)
     }
     const destFileName = createRandomFileName() + ".pdf"
-    const destFilePath = resolve(__dirname, '../../../public', 'uploads', destFileName);
+    const destFilePath = path.join(__dirname, "../../../public/uploads", destFileName);
     return new Promise((resolve, reject) => {
         const readStream = new Readable();
         readStream.push(fileBuffer);
