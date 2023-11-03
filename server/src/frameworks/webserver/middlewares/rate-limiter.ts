@@ -7,11 +7,7 @@ export const loginLimiter = rateLimit({
   });
 
 export const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 200, // maximum requests per windowMs
-    message: 'Too many requests from this IP, please try again later.',
-    keyGenerator: (req) => {
-      const xRealIp = req.headers['x-real-ip'];
-      return xRealIp ? String(xRealIp) : req.ip;
-    }
+    windowMs: 15 * 60 * 1000,
+    max: 200, 
+    message: 'Too many requests from this IP, please try again later.'
   });
