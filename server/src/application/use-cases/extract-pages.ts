@@ -38,6 +38,8 @@ export const ucExtractPages = async (pdfId: string,  pages : IPages, pdfService:
             fs.writeFileSync(tempFilePath, extractedPdf);
 
             const fileStream = fs.createReadStream(tempFilePath);
+            
+            fs.unlinkSync(filePath);
 
             return fileStream
 

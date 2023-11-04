@@ -307,9 +307,27 @@ JSON Web Token (JWT) is used for secure authentication and authorization.
 
 ### Other Third-Party Libraries
 
-- Helmet: A middleware for securing Express.js applications.
-- express-mongo-sanitize: Middleware to prevent MongoDB query injection attacks.
-- express-async-handler: Utility library for handling asynchronous operations in Express.js.
+- express-rate-limit: A middleware for rate limiting requests to an Express.js application, which helps protect your server from abuse or malicious attacks by limiting the number of requests a client can make in a specified time frame.
+
+- uuid: A library for generating universally unique identifiers (UUIDs). These are unique 128-bit values often used to identify resources or entities in distributed systems or databases.
+
+- winston: A popular logging library for Node.js that allows you to log information and errors in various formats and transports, making it easier to monitor and troubleshoot your application.
+
+- cors: A middleware for enabling Cross-Origin Resource Sharing (CORS) in your Express.js application. It allows you to control which domains or origins can access your server resources, which is essential for web security and integrating with other domains.
+
+- bcrypt: A library for securely hashing and salting passwords in your application. It's commonly used to store and verify user passwords in a way that protects them from common security threats like brute force attacks.
+
+- multer: Middleware for handling file uploads in Express.js. It simplifies the process of receiving and processing files uploaded by clients, such as images or documents.
+
+- pdf-lib: A library for creating and manipulating PDF documents in JavaScript. It provides tools for generating, modifying, and extracting data from PDF files, making it useful for tasks like PDF generation and manipulation in web applications.
+
+- axios: Axios is a popular JavaScript library for making HTTP requests from both the browser and Node.js. It provides a simple and convenient API for sending and receiving data from web servers, making it a common choice for handling network requests in web applications.
+
+- react-pdf-viewer: A React component library for rendering and interacting with PDF documents in a web application. It allows you to display PDFs and provides various features for navigation and customization, making it useful for applications that need to display PDF content.
+
+- react-icons: React Icons is a library that provides a collection of popular icon sets as React components. It simplifies the process of adding icons to your React application, offering a wide range of icon options for various use cases.
+
+- react-toastify: A library for displaying toast notifications in React applications. Toast notifications are non-intrusive pop-up messages often used to provide feedback or alerts to users in a user-friendly way. React Toastify makes it easy to create and customize these notifications in your application.
 
 ## Contact
 
